@@ -1,4 +1,4 @@
-import 'package:cocktail_app/core/theme/app_theme_data.dart';
+import 'package:cocktail_app/_core/theme/app_theme_data.dart';
 import 'package:flutter/material.dart';
 
 import 'app_root_screen.dart';
