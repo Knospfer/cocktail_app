@@ -10,7 +10,7 @@ class AppTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final horizontalMarginWidth = MediaQuery.of(context).size.width / 6;
+    final horizontalMarginWidth = MediaQuery.of(context).size.width / 5;
 
     return Container(
       margin: EdgeInsets.only(
