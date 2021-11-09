@@ -1,0 +1,1 @@
+In this folder I usually put the graphical elements used within the app
