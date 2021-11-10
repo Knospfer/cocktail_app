@@ -1,0 +1,1 @@
+In this folder I usually put everything domain-related, sorted by entity.
