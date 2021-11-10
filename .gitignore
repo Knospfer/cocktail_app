@@ -47,5 +47,5 @@ app.*.map.json
 
 
 # Auto generated files
-
+*.config.dart
 *.g.dart
