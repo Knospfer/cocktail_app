@@ -1,15 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cocktail_api_model.g.dart';
 
+@immutable
 @JsonSerializable()
 class CocktailApiModel {
   final String dateModified;
   final String idDrink;
   final String strAlcoholic;
   final String strCategory;
+  final String strDrink;
   final String? strCreativeCommonsConfirmed;
-  final String? strDrink;
   final String? strDrinkAlternate;
   final String? strDrinkThumb;
   final String? strGlass;
@@ -58,13 +60,13 @@ class CocktailApiModel {
   final String? strTags;
   final String? strVideo;
 
-  CocktailApiModel(
+  const CocktailApiModel(
     this.dateModified,
     this.idDrink,
     this.strAlcoholic,
     this.strCategory,
-    this.strCreativeCommonsConfirmed,
     this.strDrink,
+    this.strCreativeCommonsConfirmed,
     this.strDrinkAlternate,
     this.strDrinkThumb,
     this.strGlass,
