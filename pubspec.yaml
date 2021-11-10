@@ -17,12 +17,13 @@ dependencies:
     sdk: flutter
 
   # Project Dependencies
-  cupertino_icons: ^1.0.2 # iOS Icon Pack
-  dio: ^4.0.1             # Http Calls
-  sembast: ^3.1.1         # NoSQL Local Storage
-  provider: ^6.0.1        # State Management
-  get_it: ^7.2.0          # Service Locator
-  injectable: ^1.5.0      # GetIt boilerplate generator trough decorators
+  cupertino_icons: ^1.0.2   # iOS Icon Pack
+  dio: ^4.0.1               # Http Calls
+  sembast: ^3.1.1           # NoSQL Local Storage
+  provider: ^6.0.1          # State Management
+  get_it: ^7.2.0            # Service Locator
+  injectable: ^1.5.0        # GetIt boilerplate generator trough decorators
+  json_annotation: ^4.3.0   # Json Seriazliation Automated
 
 
 dev_dependencies:
@@ -37,8 +38,9 @@ dev_dependencies:
   flutter_lints: ^1.0.0
 
   # Code generators
-  injectable_generator:   # Injectable Boilerplate generator
-  build_runner:           # Build system for dart code generation
+  injectable_generator:     # Injectable Boilerplate generator
+  build_runner:             # Build system for dart code generation
+  json_serializable: ^6.0.1 # JSON serialization boilerplate generator
 
 # The following section is specific to Flutter.
 flutter:
