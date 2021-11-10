@@ -20,6 +20,7 @@ dependencies:
   cupertino_icons: ^1.0.2   # iOS Icon Pack
   dio: ^4.0.1               # Http Calls
   sembast: ^3.1.1           # NoSQL Local Storage
+  path_provider: ^2.0.6     # Absolute path providers
   provider: ^6.0.1          # State Management
   get_it: ^7.2.0            # Service Locator
   injectable: ^1.5.0        # GetIt boilerplate generator trough decorators
