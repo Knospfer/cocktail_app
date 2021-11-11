@@ -1,6 +1,6 @@
 import 'package:cocktail_app/_shared/widgets/app_tab_bar.dart';
 import 'package:cocktail_app/screens/favourites.dart';
-import 'package:cocktail_app/screens/home.dart';
+import 'package:cocktail_app/screens/home/screen/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
