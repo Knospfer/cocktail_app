@@ -13,8 +13,10 @@ class CocktailService {
   const CocktailService(this._api);
 
   Future<List<CocktailEntity>> fetchCocktailList() async {
-    final response = await _api.get<CocktailListApiResponse>("");
-    return response.drinks
+    final rawResponse = await _api.get("/search.php?s=");
+    final apiModelResponse = CocktailListApiResponse.fromJson(rawResponse);
+    
+    return apiModelResponse.drinks
         .map((model) => CocktailEntity.fromApiModel(model))
         .toList();
   }
