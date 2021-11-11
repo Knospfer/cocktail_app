@@ -1,6 +1,5 @@
+import 'package:cocktail_app/_core/routes/tab_routes.dart';
 import 'package:cocktail_app/_shared/widgets/app_tab_bar.dart';
-import 'package:cocktail_app/screens/favourites.dart';
-import 'package:cocktail_app/screens/home/screen/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,12 +13,9 @@ class AppRootScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           extendBody: true,
-          body: const TabBarView(
-            physics: BouncingScrollPhysics(),
-            children: [
-              HomeScreen(),
-              FavouritesScreen(),
-            ],
+          body: TabBarView(
+            physics: const BouncingScrollPhysics(),
+            children: TabRoutes.buildTabRoutes(),
           ),
           floatingActionButton: Container(
             alignment: Alignment.bottomCenter,
