@@ -3,7 +3,7 @@ import 'package:cocktail_app/_domain/cocktail/cocktail_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
+@injectable
 class HomeViewModel extends ChangeNotifier {
   final CocktailService _cocktailService;
   List<CocktailEntity> cocktails = [];
