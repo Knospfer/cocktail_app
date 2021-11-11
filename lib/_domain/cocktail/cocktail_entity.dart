@@ -10,12 +10,14 @@ class CocktailEntity {
   final String category;
   late final AlcoholPresence alcoholPresence;
   late final List<String?> ingredients;
+  final String? image;
 
   CocktailEntity.fromApiModel(CocktailApiModel model)
       : id = model.idDrink,
         name = model.strDrink,
         instructions = model.strInstructions,
         category = model.strCategory,
+        image = model.strDrinkThumb,
         ingredients = [
           model.strIngredient1,
           model.strIngredient2,
