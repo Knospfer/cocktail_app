@@ -11,9 +11,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  void didChangeDependencies() {
-    Provider.of<HomeViewModel>(context).fetchCocktailList();
-    super.didChangeDependencies();
+  void initState() {
+    Provider.of<HomeViewModel>(context, listen: false).fetchCocktailList();
+    super.initState();
   }
 
   @override
