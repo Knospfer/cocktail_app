@@ -4,6 +4,19 @@ import 'package:json_annotation/json_annotation.dart';
 part 'cocktail_api_model.g.dart';
 
 @immutable
+@JsonSerializable(explicitToJson: true)
+class CocktailListApiResponse {
+  final List<CocktailApiModel> drinks;
+
+  const CocktailListApiResponse(this.drinks);
+
+  factory CocktailListApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$CocktailListApiResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CocktailListApiResponseToJson(this);
+}
+
+@immutable
 @JsonSerializable()
 class CocktailApiModel {
   final String dateModified;
