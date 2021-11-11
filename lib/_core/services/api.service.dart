@@ -9,8 +9,8 @@ class ApiService {
 
   const ApiService(this._client);
 
-  Future<T> get<T>(String path) async {
-    final Response<T> response = await _client.get<T>(path);
+  Future<Map<String, dynamic>> get(String path) async {
+    final response = await _client.get<Map<String, dynamic>>(path);
     final data = response.data;
 
     if (response.statusCode == 200 && data != null) return data;
