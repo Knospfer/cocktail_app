@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 @immutable
 class Routes {
-  static const String root = "/root";
+  static const String root = "/";
 
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
