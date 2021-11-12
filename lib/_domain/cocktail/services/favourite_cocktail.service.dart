@@ -13,11 +13,11 @@ class FavouriteCocktailService {
 
   const FavouriteCocktailService(this._favouriteStore);
 
-  Future<void> saveCocktailToFavourites(CocktailEntity cocktail) async {
+  Future<void> addToFavourites(CocktailEntity cocktail) async {
     cocktail.favourite = true;
     _favouriteStore.add(cocktail);
   }
 
-  Future<List<CocktailEntity>> fetchCocktailFavourites() async =>
+  Future<List<CocktailEntity>> fetchFavourites() async =>
       _favouriteStore.get();
 }
