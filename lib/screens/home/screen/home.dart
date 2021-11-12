@@ -1,6 +1,7 @@
 import 'package:cocktail_app/_core/routes/routes.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_shared/widgets/cocktail_card.dart';
+import 'package:cocktail_app/_shared/widgets/staggered_sliver_list/staggered_sliver_list.dart';
 import 'package:cocktail_app/screens/home/view_model/home_view_model.dart';
 import 'package:cocktail_app/_shared/widgets/screen_header.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final _key = GlobalKey<StaggeredSliverListState<CocktailEntity>>();
+
   @override
   void initState() {
     _fetchCocktails();
@@ -26,6 +29,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _fetchCocktails() =>
       Provider.of<HomeViewModel>(context, listen: false).fetchCocktailList();
+
+  Future<void> _navigateToDetail(CocktailEntity cocktail) async {
+    await Navigator.pushNamed(
+      context,
+      Routes.detail,
+      arguments: cocktail,
+    );
+
+    ///for semplicity reloads cocktails list to refresh favourite state.
+    ///In more complex situation, is to prefer use a stream listening
+    ///to database status
+    await _fetchCocktails();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,44 +60,27 @@ class _HomeScreenState extends State<HomeScreen> {
             Consumer<HomeViewModel>(
               builder: (context, viewModel, child) {
                 final cocktailList = viewModel.cocktails;
-
+                
                 if (cocktailList.isNotEmpty) {
-                  return SliverAnimatedList(
-                    initialItemCount: cocktailList.length,
-                    itemBuilder: (context, index, animation) {
-                      final cocktail = cocktailList[index];
-                      return GestureDetector(
-                        behavior: HitTestBehavior.deferToChild,
-                        onTap: () async {
-                          await Navigator.pushNamed(
-                            context,
-                            Routes.detail,
-                            arguments: cocktail,
-                          );
-
-                          ///for semplicity reloads cocktails list to refresh favourite state.
-                          ///In more complex situation, is to prefer use a stream listening
-                          ///to database status
-                          await _fetchCocktails();
-                        },
-                        child: SizeTransition(
-                          sizeFactor: animation,
-                          axis: Axis.horizontal,
-                          child: CocktailCard(
-                            onFavouriteTapped: () {
-                              _toggleFavourites(cocktail);
-                            },
-                            cocktail: cocktail,
-                          ),
-                        ),
-                      );
-                    },
-                  );
+                  _key.currentState?.addItemsStaggered(cocktailList);
                 }
-                return const SliverToBoxAdapter(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+
+                return StaggeredSliverList<CocktailEntity>(
+                  key: _key,
+                  builder: (cocktail) {
+                    return GestureDetector(
+                      behavior: HitTestBehavior.deferToChild,
+                      onTap: () async {
+                        _navigateToDetail(cocktail);
+                      },
+                      child: CocktailCard(
+                        onFavouriteTapped: () {
+                          _toggleFavourites(cocktail);
+                        },
+                        cocktail: cocktail,
+                      ),
+                    );
+                  },
                 );
               },
             ),
