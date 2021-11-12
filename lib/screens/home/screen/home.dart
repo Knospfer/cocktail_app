@@ -15,9 +15,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    Provider.of<HomeViewModel>(context, listen: false).fetchCocktailList();
+    _fetchCocktails();
     super.initState();
   }
+
+  _toggleFavourites(CocktailEntity cocktail) =>
+      Provider.of<HomeViewModel>(context, listen: false)
+          .toggleFavourite(cocktail);
+
+  _fetchCocktails() =>
+      Provider.of<HomeViewModel>(context, listen: false).fetchCocktailList();
 
   @override
   Widget build(BuildContext context) {
@@ -51,17 +58,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     .map(
                       (cocktail) => GestureDetector(
                         behavior: HitTestBehavior.deferToChild,
-                        onTap: () {
-                          Navigator.pushNamed(
+                        onTap: () async {
+                          await Navigator.pushNamed(
                             context,
                             Routes.detail,
                             arguments: cocktail,
                           );
+
+                          ///for semplicity reloads cocktails list to refresh favourite state.
+                          ///In more complex situation, is to prefer use a stream listening
+                          ///to database status
+                          await _fetchCocktails();
                         },
                         child: CocktailCard(
                           cocktail: cocktail,
                           onFavouriteTapped: () {
-                            _addToFavourites(cocktail);
+                            _toggleFavourites(cocktail);
                           },
                         ),
                       ),
@@ -74,8 +86,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  _addToFavourites(CocktailEntity cocktail) =>
-      Provider.of<HomeViewModel>(context, listen: false)
-          .toggleFavourite(cocktail);
 }
