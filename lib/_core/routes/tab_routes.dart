@@ -1,5 +1,6 @@
 import 'package:cocktail_app/dependency_injection.dart';
-import 'package:cocktail_app/screens/favourites/favourites.dart';
+import 'package:cocktail_app/screens/favourites/screen/favourites.dart';
+import 'package:cocktail_app/screens/favourites/view_model/favourites_view_model.dart';
 import 'package:cocktail_app/screens/home/screen/home.dart';
 import 'package:cocktail_app/screens/home/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,9 @@ class TabRoutes {
           create: (_) => getIt<HomeViewModel>(),
           child: const HomeScreen(),
         ),
-        const FavouritesScreen()
+        ChangeNotifierProvider(
+          create: (_) => getIt<FavouritesViewModel>(),
+          child: const FavouritesScreen(),
+        ),
       ];
 }
