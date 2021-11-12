@@ -1,13 +1,20 @@
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_shared/widgets/favourite_button.dart';
+import 'package:cocktail_app/screens/detail/view_model/detail_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   final CocktailEntity cocktail;
 
   const DetailScreen({Key? key, required this.cocktail}) : super(key: key);
 
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -18,15 +25,24 @@ class DetailScreen extends StatelessWidget {
         elevation: 0,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              //TODO genera qr
+            },
             icon: const Icon(
               Icons.ios_share_outlined,
             ), //TODO icona per ios e per android
           ),
-          FavouriteButton(
-            isFavourite: cocktail.favourite,
-            onFavouriteTapped: () {},
-          )
+          Consumer<DetailViewModel>(
+            builder: (context, viewModel, child) {
+              return FavouriteButton(
+                isFavourite: widget.cocktail.favourite,
+                onFavouriteTapped: () {
+                  Provider.of<DetailViewModel>(context, listen: false)
+                      .toggleFavourite(widget.cocktail);
+                },
+              );
+            },
+          ),
         ],
       ),
       body: Stack(
@@ -37,7 +53,7 @@ class DetailScreen extends StatelessWidget {
             child: FadeInImage.assetNetwork(
               fadeInDuration: const Duration(milliseconds: 200),
               placeholder: 'assets/placeholder.png',
-              image: cocktail.image ?? "",
+              image: widget.cocktail.image ?? "",
               fit: BoxFit.cover,
             ),
           ),
@@ -68,7 +84,7 @@ class DetailScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        cocktail.name,
+                        widget.cocktail.name,
                         style: const TextStyle(
                           //TODO generalizza
                           fontWeight: FontWeight.bold,
@@ -79,7 +95,7 @@ class DetailScreen extends StatelessWidget {
                         padding: EdgeInsets.only(bottom: 4.0),
                       ), //TODO generalizza
                       Text(
-                        cocktail.category,
+                        widget.cocktail.category,
                         style: TextStyle(
                           color: Colors.grey[600],
                           fontSize: 18.0,
@@ -87,7 +103,7 @@ class DetailScreen extends StatelessWidget {
                       ),
                       const Padding(padding: EdgeInsets.only(bottom: 20.0)),
                       Text(
-                        cocktail.instructions ?? "",
+                        widget.cocktail.instructions ?? "",
                         style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 16.0,
