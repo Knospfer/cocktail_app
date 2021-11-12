@@ -1,16 +1,26 @@
 import 'package:cocktail_app/_core/enums/alcohol_presence.dart';
 import 'package:cocktail_app/_domain/cocktail/cocktail_api_model.dart';
-import 'package:flutter/material.dart';
 
-@immutable
 class CocktailEntity {
   final String id;
   final String name;
   final String? instructions;
   final String category;
-  late final AlcoholPresence alcoholPresence;
-  late final List<String?> ingredients;
   final String? image;
+  late final List<String?> ingredients;
+  late final AlcoholPresence alcoholPresence;
+  final bool favourite;
+
+  CocktailEntity({
+    required this.id,
+    required this.name,
+    required this.category,
+    required this.alcoholPresence,
+    required this.ingredients,
+    this.instructions,
+    this.image,
+    this.favourite = false,
+  });
 
   CocktailEntity.fromApiModel(CocktailApiModel model)
       : id = model.idDrink,
@@ -18,6 +28,7 @@ class CocktailEntity {
         instructions = model.strInstructions,
         category = model.strCategory,
         image = model.strDrinkThumb,
+        favourite = false,
         ingredients = [
           model.strIngredient1,
           model.strIngredient2,
