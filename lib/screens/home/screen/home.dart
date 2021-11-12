@@ -2,6 +2,7 @@ import 'package:cocktail_app/_core/routes/routes.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_shared/widgets/cocktail_card.dart';
 import 'package:cocktail_app/screens/home/view_model/home_view_model.dart';
+import 'package:cocktail_app/screens/home/widgets/home_header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,34 +30,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.only(
-          top: 24,
-          left: 24,
-          right: 24,
-        ),
-        alignment: Alignment.center,
-        child: Consumer<HomeViewModel>(
-          builder: (context, viewModel, child) {
-            return ListView(
-              physics: const BouncingScrollPhysics(),
-              children: [
-                const Text(
-                  "Hi",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40,
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.only(bottom: 10)),
-                const Text(
-                  "What would you like \nto drink tonight?",
-                  style: TextStyle(color: Colors.white, fontSize: 24),
-                ),
-                const Padding(padding: EdgeInsets.only(bottom: 20)),
-                ...viewModel.cocktails
-                    .map(
-                      (cocktail) => GestureDetector(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            const SliverToBoxAdapter(child: HomeHeader()),
+            Consumer<HomeViewModel>(
+              builder: (context, viewModel, child) {
+                final cocktailList = viewModel.cocktails;
+
+                if (cocktailList.isNotEmpty) {
+                  return SliverAnimatedList(
+                    initialItemCount: cocktailList.length,
+                    itemBuilder: (context, index, animation) {
+                      final cocktail = cocktailList[index];
+                      return GestureDetector(
                         behavior: HitTestBehavior.deferToChild,
                         onTap: () async {
                           await Navigator.pushNamed(
@@ -70,18 +59,28 @@ class _HomeScreenState extends State<HomeScreen> {
                           ///to database status
                           await _fetchCocktails();
                         },
-                        child: CocktailCard(
-                          cocktail: cocktail,
-                          onFavouriteTapped: () {
-                            _toggleFavourites(cocktail);
-                          },
+                        child: SizeTransition(
+                          sizeFactor: animation,
+                          axis: Axis.horizontal,
+                          child: CocktailCard(
+                            onFavouriteTapped: () {
+                              _toggleFavourites(cocktail);
+                            },
+                            cocktail: cocktail,
+                          ),
                         ),
-                      ),
-                    )
-                    .toList(),
-              ],
-            );
-          },
+                      );
+                    },
+                  );
+                }
+                return const SliverToBoxAdapter(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
