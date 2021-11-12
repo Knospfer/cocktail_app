@@ -2,7 +2,7 @@ import 'package:cocktail_app/_core/routes/routes.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_shared/widgets/cocktail_card.dart';
 import 'package:cocktail_app/screens/home/view_model/home_view_model.dart';
-import 'package:cocktail_app/screens/home/widgets/home_header.dart';
+import 'package:cocktail_app/_shared/widgets/screen_header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            const SliverToBoxAdapter(child: HomeHeader()),
+            const SliverToBoxAdapter(
+              child: ScreenHeader(
+                title: "Hey",
+                subtitle: "What would you \nlike to drink tonight?",
+              ),
+            ),
             Consumer<HomeViewModel>(
               builder: (context, viewModel, child) {
                 final cocktailList = viewModel.cocktails;
