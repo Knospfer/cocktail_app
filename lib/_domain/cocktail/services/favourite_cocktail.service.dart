@@ -14,11 +14,11 @@ class FavouriteCocktailService {
 
   Future<void> addToFavourites(CocktailEntity cocktail) async {
     cocktail.favourite = true;
-    _favouriteStore.add(cocktail);
+    await _favouriteStore.add(cocktail);
   }
 
   Future<void> removeFromFavourites(CocktailEntity cocktail) async {
     cocktail.favourite = false;
-    _favouriteStore.delete(cocktail);
+    await _favouriteStore.delete(cocktail);
   }
 }
