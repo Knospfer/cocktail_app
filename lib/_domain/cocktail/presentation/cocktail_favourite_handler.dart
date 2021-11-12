@@ -7,13 +7,10 @@ class CocktailFavouriteHandler extends ChangeNotifier {
 
   CocktailFavouriteHandler(this._favouriteCocktailService);
 
-  Future<void> addToFavourites(CocktailEntity cocktail) async {
-    await _favouriteCocktailService.addToFavourites(cocktail);
-    notifyListeners();
-  }
-
-  Future<void> removeToFavourites(CocktailEntity cocktail) async {
-    await _favouriteCocktailService.removeFromFavourites(cocktail);
+  Future<void> toggleFavourite(CocktailEntity cocktail) async {
+    cocktail.favourite
+        ? await _favouriteCocktailService.removeFromFavourites(cocktail)
+        : await _favouriteCocktailService.addToFavourites(cocktail);
     notifyListeners();
   }
 }

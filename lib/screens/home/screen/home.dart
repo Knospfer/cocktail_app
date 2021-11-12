@@ -77,5 +77,5 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _addToFavourites(CocktailEntity cocktail) =>
       Provider.of<HomeViewModel>(context, listen: false)
-          .addToFavourites(cocktail);
+          .toggleFavourite(cocktail);
 }
