@@ -13,7 +13,7 @@ class CocktailEntity {
   final String? image;
   late final List<String?> ingredients;
   late final AlcoholPresence alcoholPresence;
-  final bool favourite;
+  bool favourite;
 
   CocktailEntity({
     required this.id,
