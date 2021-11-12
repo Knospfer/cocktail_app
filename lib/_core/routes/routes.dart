@@ -1,6 +1,6 @@
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/app_root_screen.dart';
-import 'package:cocktail_app/screens/detail/detail_screen.dart';
+import 'package:cocktail_app/screens/detail/screen/detail_screen.dart';
 import 'package:flutter/material.dart';
 
 @immutable
