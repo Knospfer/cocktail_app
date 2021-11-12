@@ -1,4 +1,5 @@
 import 'package:cocktail_app/_core/routes/routes.dart';
+import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_shared/widgets/cocktail_card.dart';
 import 'package:cocktail_app/screens/home/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ...viewModel.cocktails
                     .map(
                       (cocktail) => GestureDetector(
+                        behavior: HitTestBehavior.deferToChild,
                         onTap: () {
                           Navigator.pushNamed(
                             context,
@@ -56,7 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             arguments: cocktail,
                           );
                         },
-                        child: CocktailCard(cocktail: cocktail),
+                        child: CocktailCard(
+                          cocktail: cocktail,
+                          onFavouriteTapped: () {
+                            _addToFavourites(cocktail);
+                          },
+                        ),
                       ),
                     )
                     .toList(),
@@ -67,4 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  _addToFavourites(CocktailEntity cocktail) =>
+      Provider.of<HomeViewModel>(context, listen: false)
+          .addToFavourites(cocktail);
 }
