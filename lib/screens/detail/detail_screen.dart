@@ -47,22 +47,23 @@ class DetailScreen extends StatelessWidget {
               //TODO estrai widget
               initialChildSize: 0.55,
               minChildSize: 0.55,
+              maxChildSize: 0.8,
               builder: (context, scrollController) {
                 return SingleChildScrollView(
                   controller: scrollController,
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.all(24),
+                  physics: const ClampingScrollPhysics(),
                   child: Container(
+                    padding: const EdgeInsets.all(24),
                     clipBehavior: Clip.hardEdge,
                     constraints: BoxConstraints(
-                      minHeight: MediaQuery.of(context).size.height / 1.8,
+                      minHeight: MediaQuery.of(context).size.height * 0.8,
                     ),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(35.0),
                         topRight: Radius.circular(35.0),
                       ),
-                      color: Colors.white,
+                      color: Colors.grey.shade800,
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
