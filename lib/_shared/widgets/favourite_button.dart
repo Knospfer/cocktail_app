@@ -18,7 +18,7 @@ class FavouriteButton extends StatelessWidget {
       icon: isFavourite
           ? const Icon(
               Icons.favorite,
-              color: Colors.red,
+              color: Colors.white,
             )
           : const Icon(
               Icons.favorite_border,
