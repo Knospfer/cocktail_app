@@ -9,9 +9,16 @@ abstract class Store<T> {
   String getItemKey(T item);
   @protected
   Map<String, dynamic> itemToJson(T item);
+  @protected
+  T fromJson(Map<String, dynamic> json);
 
   Store(this._database, {required name}) {
     _store = intMapStoreFactory.store(name);
+  }
+
+  Future<List<T>> get() async {
+    final items = await _store.find(_database);
+    return items.map((e) => fromJson(e.value)).toList();
   }
 
   Future<void> add(T item) async {
