@@ -1,7 +1,10 @@
 import 'package:cocktail_app/_core/enums/alcohol_presence.dart';
-import 'package:cocktail_app/_domain/cocktail/data/cocktail_api_model.dart';
+import 'package:cocktail_app/_domain/cocktail/cocktail_api_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'cocktail_entity.g.dart';
 
+@JsonSerializable()
 class CocktailEntity {
   final String id;
   final String name;
@@ -61,4 +64,9 @@ class CocktailEntity {
         throw Exception("Missing Alcohol Presence!");
     }
   }
+
+  factory CocktailEntity.fromJson(Map<String, dynamic> json) =>
+      _$CocktailEntityFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CocktailEntityToJson(this);
 }
