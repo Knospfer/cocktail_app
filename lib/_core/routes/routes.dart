@@ -1,7 +1,10 @@
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/app_root_screen.dart';
+import 'package:cocktail_app/dependency_injection.dart';
 import 'package:cocktail_app/screens/detail/screen/detail_screen.dart';
+import 'package:cocktail_app/screens/detail/view_model/detail_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 @immutable
 class Routes {
@@ -15,7 +18,10 @@ class Routes {
       case detail:
         return _pageRoute(
           settings,
-          (_) => DetailScreen(cocktail: settings.arguments as CocktailEntity),
+          (_) => ChangeNotifierProvider(
+            create: (_) => getIt<DetailViewModel>(),
+            child: DetailScreen(cocktail: settings.arguments as CocktailEntity),
+          ),
         );
       default:
         throw (Exception("Route not found!"));
