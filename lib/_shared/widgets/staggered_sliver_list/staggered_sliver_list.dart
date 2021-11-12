@@ -37,13 +37,15 @@ class StaggeredSliverListState<T> extends State<StaggeredSliverList<T>> {
   }
 
   void removeItem(T item) {
-    if (_sliverIndex - 1 > 0) {
+    if (_sliverIndex - 1 >= 0) {
       _sliverIndex--;
+
       _key.currentState?.removeItem(
         _sliverIndex,
         (context, animation) {
           final item = _items[_sliverIndex];
-
+          _items.removeAt(_sliverIndex);
+          
           return StaggereSliverListItem(
             child: widget.builder(item),
             animation: animation,
