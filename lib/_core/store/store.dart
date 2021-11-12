@@ -7,8 +7,13 @@ abstract class Store<T> {
 
   @protected
   String getItemKey(T item);
+
+  @protected
+  String getItemKeyName();
+
   @protected
   Map<String, dynamic> itemToJson(T item);
+
   @protected
   T fromJson(Map<String, dynamic> json);
 
@@ -29,7 +34,11 @@ abstract class Store<T> {
 
   Future<void> delete(T item) async {
     await _database.transaction((transaction) async {
-      final finder = Finder(filter: Filter.byKey(getItemKey(item)));
+      final finder = Finder(
+        filter: Filter.custom(
+          (record) => record[getItemKeyName()] == getItemKey(item),
+        ),
+      );
       await _store.delete(transaction, finder: finder);
     });
   }

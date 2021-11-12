@@ -9,6 +9,9 @@ class CocktailStore extends Store<CocktailEntity> {
 
   @override
   String getItemKey(item) => item.id;
+  
+  @override
+  String getItemKeyName() => "id";
 
   @override
   Map<String, dynamic> itemToJson(item) => item.toJson();
