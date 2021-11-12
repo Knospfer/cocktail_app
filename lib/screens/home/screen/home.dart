@@ -48,15 +48,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 const Padding(padding: EdgeInsets.only(bottom: 20)),
                 ...viewModel.cocktails
                     .map(
-                      (c) => GestureDetector(
+                      (cocktail) => GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(
                             context,
                             Routes.detail,
-                            arguments: c,
+                            arguments: cocktail,
                           );
                         },
-                        child: CocktailCard(cocktail: c),
+                        child: CocktailCard(cocktail: cocktail),
                       ),
                     )
                     .toList(),
