@@ -1,5 +1,5 @@
-import 'package:cocktail_app/_domain/cocktail/cocktail.service.dart';
-import 'package:cocktail_app/_domain/cocktail/cocktail_entity.dart';
+import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
+import 'package:cocktail_app/_domain/cocktail/services/cocktail.service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 

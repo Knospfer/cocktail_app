@@ -1,8 +1,7 @@
 import 'package:cocktail_app/_core/store/store.dart';
+import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sembast/sembast.dart';
-
-import 'cocktail_entity.dart';
 
 @singleton
 class CocktailStore extends Store<CocktailEntity> {

@@ -1,8 +1,10 @@
-import 'package:cocktail_app/_domain/cocktail/cocktail.store.dart';
+
+import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
+import 'package:cocktail_app/_domain/cocktail/store/cocktail.store.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
-import 'cocktail_entity.dart';
+
 
 @lazySingleton
 @immutable

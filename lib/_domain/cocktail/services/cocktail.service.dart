@@ -1,10 +1,8 @@
 import 'package:cocktail_app/_core/services/api.service.dart';
+import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
+import 'package:cocktail_app/_domain/cocktail/model/cocktail_api_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
-
-import 'cocktail.store.dart';
-import 'cocktail_api_model.dart';
-import 'cocktail_entity.dart';
 
 @lazySingleton
 @immutable
