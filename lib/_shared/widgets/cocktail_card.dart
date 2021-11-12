@@ -1,4 +1,5 @@
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
+import 'package:cocktail_app/_shared/widgets/favourite_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -51,17 +52,9 @@ class CocktailCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: onFavouriteTapped,
-                  icon: cocktail.favourite
-                      ? const Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        )
-                      : const Icon(
-                          Icons.favorite_border,
-                          color: Colors.white,
-                        ),
+                FavouriteButton(
+                  isFavourite: cocktail.favourite,
+                  onFavouriteTapped: onFavouriteTapped,
                 ),
               ],
             ),
