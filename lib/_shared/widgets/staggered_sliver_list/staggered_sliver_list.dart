@@ -23,11 +23,14 @@ class StaggeredSliverListState<T> extends State<StaggeredSliverList<T>> {
 
   void addItemsStaggered(List<T> incomingItems) {
     Future.forEach(incomingItems, (item) async {
-      await Future.delayed(const Duration(milliseconds: 300));
+      if (_sliverIndex > 0) {
+        await Future.delayed(const Duration(milliseconds: 200));
+      }
+
       _items.add(item as T);
       _key.currentState?.insertItem(
         _sliverIndex,
-        duration: const Duration(milliseconds: 400),
+        duration: const Duration(milliseconds: 300),
       );
       _sliverIndex++;
     });
@@ -66,7 +69,9 @@ class StaggeredSliverListState<T> extends State<StaggeredSliverList<T>> {
 
         return const SliverToBoxAdapter(
             child: Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
         ));
       },
     );
