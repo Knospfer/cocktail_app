@@ -6,11 +6,20 @@ import 'package:injectable/injectable.dart';
 @injectable
 class FavouritesViewModel extends CocktailFavouriteHandler {
   final FavouriteCocktailService _favouriteCocktailService;
-  
+  List<CocktailEntity> cocktails = [];
+
   FavouritesViewModel(this._favouriteCocktailService)
       : super(_favouriteCocktailService);
 
-  Future<List<CocktailEntity>> fetchFavourites() async {
-    return _favouriteCocktailService.fetchFavourites();
+  Future<void> fetchFavourites() async {
+    cocktails = await _favouriteCocktailService.fetchFavourites();
+    notifyListeners();
+  }
+
+  Future<void> removeFromFavourites(CocktailEntity cocktail) async {
+    //TODO MIGIORA MIXIN
+    await _favouriteCocktailService.removeFromFavourites(cocktail);
+    cocktails
+        .removeWhere((current) => current.id == cocktail.id); //TODO EQUATABLE
   }
 }
