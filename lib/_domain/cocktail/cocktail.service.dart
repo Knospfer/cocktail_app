@@ -10,9 +10,8 @@ import 'cocktail_entity.dart';
 @immutable
 class CocktailService {
   final ApiService _api;
-  final CocktailStore _favouriteStore;
 
-  const CocktailService(this._api, this._favouriteStore);
+  const CocktailService(this._api);
 
   Future<List<CocktailEntity>> fetchCocktailList() async {
     final rawResponse = await _api.get("/search.php?s=");
@@ -21,9 +20,5 @@ class CocktailService {
     return apiModelResponse.drinks
         .map((model) => CocktailEntity.fromApiModel(model))
         .toList();
-  }
-
-  Future<void> saveCocktailToFavourites(CocktailEntity cocktail) async {
-    _favouriteStore.add(cocktail);
   }
 }
