@@ -14,6 +14,7 @@ class FavouriteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      splashRadius: 20,
       onPressed: onFavouriteTapped,
       icon: isFavourite
           ? const Icon(
