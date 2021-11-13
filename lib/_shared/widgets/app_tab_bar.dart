@@ -1,3 +1,4 @@
+import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -5,8 +6,13 @@ import 'circle_indicator.dart';
 
 class AppTabBar extends StatelessWidget {
   final List<Tab> tabs;
+  final TabController? tabController;
 
-  const AppTabBar({Key? key, required this.tabs}) : super(key: key);
+  const AppTabBar({
+    Key? key,
+    required this.tabs,
+    this.tabController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,7 @@ class AppTabBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 1),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(50)),
-        color: Colors.grey,
+        color: ColorPalette.white,
         boxShadow: [
           BoxShadow(
             blurRadius: 12.0,
@@ -31,9 +37,10 @@ class AppTabBar extends StatelessWidget {
         ],
       ),
       child: TabBar(
+        controller: tabController,
         tabs: tabs,
-        indicator: const CircleTabIndicator(color: Colors.white, radius: 3),
-        unselectedLabelStyle: const TextStyle(fontSize: 0.0),
+        indicator:
+            const CircleTabIndicator(color: ColorPalette.deepRed, radius: 3),
       ),
     );
   }
