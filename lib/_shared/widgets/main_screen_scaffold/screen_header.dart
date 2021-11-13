@@ -1,3 +1,5 @@
+import 'package:cocktail_app/_core/colors/color_palette.dart';
+import 'package:cocktail_app/_shared/widgets/utility/paddings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,17 +22,17 @@ class ScreenHeader extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            color: Colors.white,
+            color: ColorPalette.white,
             fontSize: 40,
           ),
         ),
-        const Padding(padding: EdgeInsets.only(bottom: 10)), //TODO generalizza
+        const VerticalPadding(padding: 10),
         Text(
           subtitle,
           style: const TextStyle(
-              color: Colors.white, fontSize: 26), //TODO generalizza
+              color: ColorPalette.white, fontSize: 26), //TODO generalizza
         ),
-        const Padding(padding: EdgeInsets.only(bottom: 20)),
+        const VerticalPadding(padding: 20),
       ],
     );
   }

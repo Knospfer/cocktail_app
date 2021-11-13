@@ -1,3 +1,4 @@
+import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,11 +20,11 @@ class FavouriteButton extends StatelessWidget {
       icon: isFavourite
           ? const Icon(
               Icons.favorite,
-              color: Colors.white,
+              color: ColorPalette.white,
             )
           : const Icon(
               Icons.favorite_border,
-              color: Colors.white,
+              color: ColorPalette.white,
             ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:cocktail_app/_shared/widgets/staggered_sliver_list/staggered_sliver_list_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class StaggeredSliverListState<T> extends State<StaggeredSliverList<T>> {
         (context, animation) {
           final item = _items[_sliverIndex];
           _items.removeAt(_sliverIndex);
-          
+
           return StaggereSliverListItem(
             child: widget.builder(item),
             animation: animation,
@@ -72,7 +73,7 @@ class StaggeredSliverListState<T> extends State<StaggeredSliverList<T>> {
         return const SliverToBoxAdapter(
             child: Center(
           child: CircularProgressIndicator(
-            color: Colors.white,
+            color: ColorPalette.white,
           ),
         ));
       },

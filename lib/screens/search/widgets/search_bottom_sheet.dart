@@ -1,3 +1,4 @@
+import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:cocktail_app/_core/enums/alcohol_presence.dart';
 import 'package:cocktail_app/_domain/filter/filter_entities.dart';
 import 'package:cocktail_app/_shared/widgets/utility/paddings.dart';
@@ -58,7 +59,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                   "Name",
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.white,
+                    color: ColorPalette.white,
                   ),
                 ),
                 const VerticalPadding(padding: 10),
@@ -76,7 +77,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                   "Categories",
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.white,
+                    color: ColorPalette.white,
                   ),
                 ),
                 const VerticalPadding(padding: 10),
@@ -98,7 +99,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
               "Ingredients",
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.white,
+                color: ColorPalette.white,
               ),
             ),
             padding: EdgeInsets.only(left: 16, right: 16, bottom: 10),
@@ -116,7 +117,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
               "Alcohol?",
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.white,
+                color: ColorPalette.white,
               ),
             ),
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
