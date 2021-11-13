@@ -1,4 +1,5 @@
 import 'package:cocktail_app/_core/enums/alcohol_presence.dart';
+import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_domain/filter/filter_entities.dart';
 import 'package:cocktail_app/_domain/filter/filter_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,7 +9,7 @@ import 'package:injectable/injectable.dart';
 class SearchBottomSheetViewModel extends ChangeNotifier {
   final FilterService _filterService;
   FilterDataEntity? filterData;
-  ApllyingFilterEntity? applyFilter;
+  ApllyingFilterEntity? filter;
 
   SearchBottomSheetViewModel(this._filterService);
 
@@ -23,10 +24,13 @@ class SearchBottomSheetViewModel extends ChangeNotifier {
     AlcoholPresence? alcoholPresence,
     List<String>? ingredients,
   }) {
-    applyFilter ??= ApllyingFilterEntity();
-    if (name != null) applyFilter?.name = name;
-    if (category != null) applyFilter?.category = category;
-    if (alcoholPresence != null) applyFilter?.alcoholPresence = alcoholPresence;
-    if (ingredients != null) applyFilter?.ingredients = ingredients;
+    filter ??= ApllyingFilterEntity();
+    if (name != null) filter?.name = name;
+    if (category != null) filter?.category = category;
+    if (alcoholPresence != null) filter?.alcoholPresence = alcoholPresence;
+    if (ingredients != null) filter?.ingredients = ingredients;
   }
+
+  Future<List<CocktailEntity>?> applyFilter() =>
+      _filterService.applyFilter(filter);
 }
