@@ -14,14 +14,13 @@ class FilterDataEntity {
   });
 }
 
-@immutable
 class ApllyingFilterEntity {
-  final String? name;
-  final String? category;
-  final List<String>? ingredients;
-  final AlcoholPresence? alcoholPresence;
+  String? name;
+  String? category;
+  List<String>? ingredients;
+  AlcoholPresence? alcoholPresence;
 
-  const ApllyingFilterEntity({
+  ApllyingFilterEntity({
     this.name,
     this.category,
     this.ingredients,
