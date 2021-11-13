@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 final appThemeData = ThemeData(
   scaffoldBackgroundColor: ColorPalette.black,
+  primarySwatch: Colors.grey,
   appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(
         color: ColorPalette.white,
