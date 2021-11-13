@@ -29,20 +29,40 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
       physics: const BouncingScrollPhysics(),
       slivers: [
         SliverToBoxAdapter(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              Text("Name"),
-              CupertinoTextField(placeholder: "Margarita.."),
-              VerticalPadding(padding: 20),
-              Text("Categories"),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  "Name",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+                VerticalPadding(padding: 10),
+                CupertinoTextField(placeholder: "Margarita.."),
+                VerticalPadding(padding: 20),
+                Text(
+                  "Categories",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+                VerticalPadding(padding: 10),
+              ],
+            ),
           ),
         ),
         SliverToBoxAdapter(
           child: SizedBox(
             height: 30,
             child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               children: widget.filter.categories
                   .map((e) => Chip(label: Text(e)))
@@ -51,16 +71,43 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
           ),
         ),
         const SliverPadding(padding: EdgeInsets.only(bottom: 20)),
-        const SliverToBoxAdapter(child: const Text("Ingredients")),
-        // SliverToBoxAdapter(
-        //   child: ListView(
-        //     scrollDirection: Axis.horizontal,
-        //     children: widget.filter.ingredients
-        //         .map((e) => Chip(label: Text(e)))
-        //         .toList(),
-        //   ),
-        // ),
-        const SliverToBoxAdapter(child: const Text("Alcohol?")),
+        const SliverToBoxAdapter(
+          child: Padding(
+            child: Text(
+              "Ingredients",
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+              ),
+            ),
+            padding: EdgeInsets.only(left: 16, right: 16, bottom: 10),
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: SizedBox(
+            height: 30,
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              children: widget.filter.ingredients
+                  .map((e) => Chip(label: Text(e)))
+                  .toList(),
+            ),
+          ),
+        ),
+        const SliverToBoxAdapter(
+          child: Padding(
+            child: Text(
+              "Alcohol?",
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+              ),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+          ),
+        ),
         SliverToBoxAdapter(
           child: AlcoholPresenceRadioGroup(
             groupValue: _alcoholPresence,

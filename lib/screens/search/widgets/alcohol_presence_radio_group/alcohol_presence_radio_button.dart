@@ -31,6 +31,7 @@ class AlcoholPresenceRadioButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: EdgeInsets.zero,
       title: Text(_title),
       leading: Theme(
         data: ThemeData(unselectedWidgetColor: Colors.white70),
