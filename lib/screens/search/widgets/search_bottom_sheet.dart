@@ -1,10 +1,12 @@
 import 'package:cocktail_app/_core/enums/alcohol_presence.dart';
 import 'package:cocktail_app/_domain/filter/filter_entities.dart';
 import 'package:cocktail_app/_shared/widgets/utility/paddings.dart';
+import 'package:cocktail_app/screens/search/view_model/search_bottom_sheet_view_model.dart';
 import 'package:cocktail_app/screens/search/widgets/alcohol_presence_radio_group/alcohol_presence_radio_group.dart';
 import 'package:cocktail_app/screens/search/widgets/horizontal_sliver_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SearchBottomSheet extends StatefulWidget {
   final FilterDataEntity filter;
@@ -15,6 +17,7 @@ class SearchBottomSheet extends StatefulWidget {
 }
 
 class _SearchBottomSheetState extends State<SearchBottomSheet> {
+  final _controller = TextEditingController();
   AlcoholPresence _alcoholPresence = AlcoholPresence.present;
 
   void _updateRadioState(AlcoholPresence? value) {
@@ -23,6 +26,20 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
       _alcoholPresence = value;
     });
   }
+
+  void _updateFilterState({
+    String? name,
+    String? category,
+    AlcoholPresence? alcoholPresence,
+    List<String>? ingredients,
+  }) =>
+      Provider.of<SearchBottomSheetViewModel>(context, listen: false)
+          .updateFilter(
+        name: name,
+        category: category,
+        alcoholPresence: alcoholPresence,
+        ingredients: ingredients,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -35,25 +52,33 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   "Name",
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.white,
                   ),
                 ),
-                VerticalPadding(padding: 10),
-                CupertinoTextField(placeholder: "Margarita.."),
-                VerticalPadding(padding: 20),
-                Text(
+                const VerticalPadding(padding: 10),
+                CupertinoTextField(
+                  placeholder: "Margarita..",
+                  controller: _controller,
+                  cursorColor: Colors.grey,
+                  onSubmitted: (_) {
+                    final name = _controller.text;
+                    _updateFilterState(name: name);
+                  },
+                ),
+                const VerticalPadding(padding: 20),
+                const Text(
                   "Categories",
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.white,
                   ),
                 ),
-                VerticalPadding(padding: 10),
+                const VerticalPadding(padding: 10),
               ],
             ),
           ),
