@@ -5,7 +5,6 @@ import 'package:cocktail_app/_shared/widgets/main_screen_scaffold/main_screen_sc
 import 'package:cocktail_app/_shared/widgets/staggered_sliver_list/staggered_sliver_list.dart';
 import 'package:cocktail_app/screens/home/view_model/home_view_model.dart';
 import 'package:cocktail_app/screens/search/builder/search_bottom_sheet_builder.dart';
-import 'package:cocktail_app/screens/search/screen/search_bottom_sheet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -46,11 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future _showSearchBottomSheet() async {
-    showModalBottomSheet(
+    final list = await showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
       builder: (_) => const SearchBottomSheetBuilder(),
     );
+    if (list != null) {
+      Provider.of<HomeViewModel>(context, listen: false)
+          .updateCocktailsManually(list);
+    }
   }
 
   @override
