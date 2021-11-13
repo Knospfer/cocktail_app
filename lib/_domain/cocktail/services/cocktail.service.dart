@@ -15,7 +15,7 @@ class CocktailService {
   const CocktailService(this._api, this._favouriteStore);
 
   Future<List<CocktailEntity>> fetchCocktailList() async {
-    final rawResponse = await _api.getValue("/search.php?s=");
+    final rawResponse = await _api.get("/search.php?s=");
     final apiModelResponse =
         ApiResponse<CocktailApiModel>.fromJson(rawResponse);
 
