@@ -1,4 +1,5 @@
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
+import 'package:cocktail_app/_shared/widgets/cocktail_card/cocktail_chip.dart';
 import 'package:cocktail_app/_shared/widgets/favourite_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,11 +29,18 @@ class CocktailCard extends StatelessWidget {
       ),
       child: Container(
         color: Colors.black26,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: CocktailChip(cocktail: cocktail),
+            ),
+            const Expanded(child: SizedBox()),
             Text(
               cocktail.name,
               style: const TextStyle(
