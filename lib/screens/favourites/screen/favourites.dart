@@ -62,6 +62,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     return MainScreenScaffold(
       title: "Hey",
       subtitle: "Here's your \nfavourite cocktails",
+      onSearchPressed: () {},
       children: [
         Consumer<FavouritesViewModel>(
           builder: (context, viewModel, child) {

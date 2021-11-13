@@ -17,7 +17,6 @@ class ScreenHeader extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(padding: EdgeInsets.only(bottom: 80)),
         Text(
           title,
           style: const TextStyle(

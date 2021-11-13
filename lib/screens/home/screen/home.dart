@@ -48,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return MainScreenScaffold(
       title: "Hey",
       subtitle: "What would you \nlike to drink tonight?",
+      onSearchPressed: (){},
       children: [
         Consumer<HomeViewModel>(
           builder: (context, viewModel, child) {

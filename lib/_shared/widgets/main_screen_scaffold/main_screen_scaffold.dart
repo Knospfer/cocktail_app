@@ -8,31 +8,45 @@ class MainScreenScaffold extends StatelessWidget {
   final String title;
   final String subtitle;
   final List<Widget> children;
+  final void Function() onSearchPressed;
 
   const MainScreenScaffold({
     Key? key,
     required this.title,
     required this.subtitle,
     required this.children,
+    required this.onSearchPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            SliverToBoxAdapter(
-              child: ScreenHeader(
-                title: title,
-                subtitle: subtitle,
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 200,
+            backgroundColor: Colors.transparent,
+            actions: [
+              IconButton(
+                onPressed: onSearchPressed,
+                icon: const Icon(Icons.search),
+              ),
+            ],
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.bottomLeft,
+                child: ScreenHeader(
+                  title: title,
+                  subtitle: subtitle,
+                ),
               ),
             ),
-            ...children,
-          ],
-        ),
+            title: const Text("Cocktailz"),
+          ),
+          ...children,
+        ],
       ),
     );
   }
