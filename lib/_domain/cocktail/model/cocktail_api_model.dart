@@ -1,3 +1,4 @@
+import 'package:cocktail_app/_core/services/api/api_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -5,7 +6,7 @@ part 'cocktail_api_model.g.dart';
 
 @immutable
 @JsonSerializable()
-class CocktailApiModel {
+class CocktailApiModel extends Serializable {
   final String dateModified;
   final String idDrink;
   final String strAlcoholic;
@@ -117,5 +118,6 @@ class CocktailApiModel {
   factory CocktailApiModel.fromJson(Map<String, dynamic> json) =>
       _$CocktailApiModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$CocktailApiModelToJson(this);
 }

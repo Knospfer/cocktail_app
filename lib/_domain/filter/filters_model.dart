@@ -19,9 +19,10 @@ class CategoryModel {
 @immutable
 @JsonSerializable()
 class IngredientModel {
-  final String strIngredient1;
+  @JsonKey(name: "strIngredient1")
+  final String strIngredient;
 
-  const IngredientModel(this.strIngredient1);
+  const IngredientModel(this.strIngredient);
 
   factory IngredientModel.fromJson(Map<String, dynamic> json) =>
       _$IngredientModelFromJson(json);
