@@ -8,14 +8,27 @@ class AppRootScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final routes = TabRoutes.buildTabRoutes();
+
     return DefaultTabController(
-      length: 2,
+      length: routes.length,
       child: Scaffold(
         extendBody: true,
         body: TabBarView(
           physics: const BouncingScrollPhysics(),
-          children: TabRoutes.buildTabRoutes(),
+          children: routes,
         ),
+        floatingActionButton: Container(
+          alignment: Alignment.bottomCenter,
+          height: 80,
+          child: FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: Colors.blueGrey,
+            child: const Icon(Icons.qr_code),
+            elevation: 1,
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: const AppTabBar(
           tabs: [
             Tab(icon: Icon(Icons.home)),
