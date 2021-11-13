@@ -66,7 +66,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                 CupertinoTextField(
                   placeholder: "Margarita..",
                   controller: _controller,
-                  cursorColor: Colors.grey,
+                  cursorColor: ColorPalette.black,
                   onSubmitted: (_) {
                     final name = _controller.text;
                     _updateFilterState(name: name);

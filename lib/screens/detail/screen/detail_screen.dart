@@ -1,3 +1,4 @@
+import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_shared/widgets/favourite_button.dart';
 import 'package:cocktail_app/screens/detail/view_model/detail_view_model.dart';
@@ -78,12 +79,12 @@ class _DetailScreenState extends State<DetailScreen> {
                     constraints: BoxConstraints(
                       minHeight: MediaQuery.of(context).size.height * 0.8,
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(35.0),
                         topRight: Radius.circular(35.0),
                       ),
-                      color: Colors.grey.shade800,
+                      color: ColorPalette.black,
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -101,8 +102,8 @@ class _DetailScreenState extends State<DetailScreen> {
                         ), //TODO generalizza
                         Text(
                           widget.cocktail.category,
-                          style: TextStyle(
-                            color: Colors.grey[600],
+                          style: const TextStyle(
+                            color: ColorPalette.white,
                             fontSize: 18.0,
                           ),
                         ),
@@ -110,7 +111,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         Text(
                           widget.cocktail.instructions ?? "",
                           style: const TextStyle(
-                            color: Colors.grey,
+                            color: ColorPalette.white,
                             fontSize: 16.0,
                           ),
                         ),
