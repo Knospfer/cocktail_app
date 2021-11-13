@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SearchBottomSheetScreen extends StatefulWidget {
-  const SearchBottomSheetScreen({Key? key}) : super(key: key);
+  const SearchBottomSheetScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<SearchBottomSheetScreen> createState() =>
@@ -47,8 +49,12 @@ class _SearchBottomSheetScreenState extends State<SearchBottomSheetScreen> {
             ),
             actions: [
               IconButton(
-                onPressed: () {
-                  //TODO cerca
+                onPressed: () async {
+                  final list = await Provider.of<SearchBottomSheetViewModel>(
+                    context,
+                    listen: false,
+                  ).applyFilter();
+                  Navigator.pop(context, list);
                 },
                 icon: const Icon(Icons.search),
               )
