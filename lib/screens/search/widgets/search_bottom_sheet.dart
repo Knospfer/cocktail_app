@@ -25,6 +25,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
     setState(() {
       _alcoholPresence = value;
     });
+    _updateFilterState(alcoholPresence: _alcoholPresence);
   }
 
   void _updateFilterState({

@@ -1,5 +1,5 @@
+import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:cocktail_app/_core/enums/alcohol_presence.dart';
-import 'package:cocktail_app/_core/theme/app_theme_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -31,12 +31,15 @@ class AlcoholPresenceRadioButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: EdgeInsets.zero,
-      title: Text(_title),
+      contentPadding: const EdgeInsets.only(left: 4),
+      title: Text(
+        _title,
+        style: const TextStyle(color: ColorPalette.white),
+      ),
       leading: Theme(
-        data: ThemeData(unselectedWidgetColor: Colors.white70),
+        data: ThemeData(unselectedWidgetColor: Colors.white30),
         child: Radio<AlcoholPresence>(
-          activeColor: Colors.white,
+          activeColor: ColorPalette.white,
           value: value,
           groupValue: groupValue,
           onChanged: onChanged,
