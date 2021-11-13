@@ -16,17 +16,6 @@ class AppRootScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: TabRoutes.buildTabRoutes(),
         ),
-        floatingActionButton: Container(
-          alignment: Alignment.bottomCenter,
-          height: 80,
-          child: FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: Colors.blueGrey,
-            child: const Icon(Icons.qr_code),
-            elevation: 1,
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: const AppTabBar(
           tabs: [
             Tab(icon: Icon(Icons.home)),
