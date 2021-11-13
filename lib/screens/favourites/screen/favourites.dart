@@ -77,7 +77,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                 return GestureDetector(
                   behavior: HitTestBehavior.deferToChild,
                   onTap: () {
-                    _navigateToDetail(cocktail);
+                    if (cocktail.favourite) _navigateToDetail(cocktail);
                   },
                   child: CocktailCard(
                     onFavouriteTapped: () {
