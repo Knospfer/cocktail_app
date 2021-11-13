@@ -1,6 +1,6 @@
-import 'package:cocktail_app/_core/services/api.service.dart';
+import 'package:cocktail_app/_core/services/api/api.service.dart';
+import 'package:cocktail_app/_core/services/api/api_response.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
-import 'package:cocktail_app/_domain/cocktail/model/cocktail_api_model.dart';
 import 'package:cocktail_app/_domain/cocktail/store/cocktail.store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
@@ -15,13 +15,13 @@ class CocktailService {
 
   Future<List<CocktailEntity>> fetchCocktailList() async {
     final rawResponse = await _api.get("/search.php?s=");
-    final apiModelResponse = CocktailListApiResponse.fromJson(rawResponse);
+    final apiModelResponse = ApiResponse.fromJson(rawResponse);
 
     return await _cocktailsWithFavouriteStatus(apiModelResponse);
   }
 
   Future<List<CocktailEntity>> _cocktailsWithFavouriteStatus(
-    CocktailListApiResponse apiModelResponse,
+    ApiResponse apiModelResponse,
   ) async {
     final Map<String, CocktailEntity?> favouriteMap =
         await _createFavouriteMap();
