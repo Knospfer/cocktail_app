@@ -26,7 +26,7 @@ class MainScreenScaffold extends StatelessWidget {
         slivers: [
           SliverAppBar(
             expandedHeight: 200,
-            backgroundColor: Colors.transparent,
+            
             actions: [
               IconButton(
                 onPressed: onSearchPressed,

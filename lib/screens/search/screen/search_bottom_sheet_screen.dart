@@ -37,7 +37,6 @@ class _SearchBottomSheetScreenState extends State<SearchBottomSheetScreen> {
         ),
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
             elevation: 0,
             title: const Text("Search"),
             centerTitle: true,

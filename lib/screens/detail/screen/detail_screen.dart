@@ -22,8 +22,6 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent, //TODO theme
-        elevation: 0,
         actions: [
           IconButton(
             onPressed: () {
