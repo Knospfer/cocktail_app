@@ -30,6 +30,7 @@ class MainScreenScaffold extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: onSearchPressed,
+                splashRadius: 20,
                 icon: const Icon(Icons.search),
               ),
             ],
