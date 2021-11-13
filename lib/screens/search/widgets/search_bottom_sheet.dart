@@ -3,7 +3,7 @@ import 'package:cocktail_app/_domain/filter/filter_entities.dart';
 import 'package:cocktail_app/_shared/widgets/utility/paddings.dart';
 import 'package:cocktail_app/screens/search/view_model/search_bottom_sheet_view_model.dart';
 import 'package:cocktail_app/screens/search/widgets/alcohol_presence_radio_group/alcohol_presence_radio_group.dart';
-import 'package:cocktail_app/screens/search/widgets/horizontal_sliver_list.dart';
+import 'package:cocktail_app/screens/search/widgets/sliver_list_chip_horizontal_selectable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -83,7 +83,13 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
             ),
           ),
         ),
-        SliverChipGridHorizontal(items: widget.filter.categories),
+        SliverListChipHorizonalSelectable(
+          items: widget.filter.categories.map((e) => ChipItem(e)).toList(),
+          singleSlectionEnabled: true,
+          onSelection: (items) {
+            _updateFilterState(category: items.first);
+          },
+        ),
         const SliverPadding(padding: EdgeInsets.only(bottom: 20)),
         const SliverToBoxAdapter(
           child: Padding(
@@ -97,7 +103,12 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
             padding: EdgeInsets.only(left: 16, right: 16, bottom: 10),
           ),
         ),
-        SliverChipGridHorizontal(items: widget.filter.ingredients, rows: 4),
+        SliverListChipHorizonalSelectable(
+          items: widget.filter.ingredients.map((e) => ChipItem(e)).toList(),
+          onSelection: (items) {
+            _updateFilterState(ingredients: items);
+          },
+        ),
         const SliverToBoxAdapter(
           child: Padding(
             child: Text(
