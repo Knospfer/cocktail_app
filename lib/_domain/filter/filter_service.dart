@@ -1,6 +1,5 @@
 import 'package:cocktail_app/_core/services/api/api.service.dart';
 import 'package:cocktail_app/_core/services/api/api_response.dart';
-import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_domain/filter/filter_entities.dart';
 import 'package:cocktail_app/_domain/filter/filters_model.dart';
 import 'package:injectable/injectable.dart';
@@ -10,14 +9,6 @@ class FilterService {
   final ApiService _apiService;
 
   FilterService(this._apiService);
-
-  Future<List<CocktailEntity>?> applyFilter(
-    ApllyingFilterEntity? filter,
-  ) async {
-    if (filter == null) return null;
-    //TODO LOGICA CREAZIONE API
-    return [];
-  }
 
   Future<FilterDataEntity> fillFilter() async {
     final categories = await _getCategories();
