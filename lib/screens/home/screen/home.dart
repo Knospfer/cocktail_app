@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onSearchPressed: () async {
         _isSearching = true;
         final filter = await showSearchBottomSheet(context);
-        await _fetchCocktails(filter: filter);
+        if (filter != null) await _fetchCocktails(filter: filter);
       },
       children: [
         Consumer<HomeViewModel>(
