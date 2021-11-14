@@ -18,6 +18,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _key = GlobalKey<StaggeredSliverListState<CocktailEntity>>();
+  bool _firstCall = true;
+  bool _isSearching = false;
 
   @override
   void initState() {
@@ -39,18 +41,26 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  bool _shouldUpdateCardList(List<CocktailEntity> cocktails) =>
+      cocktails.isNotEmpty && (_firstCall || _isSearching);
+
   @override
   Widget build(BuildContext context) {
     return MainScreenScaffold(
       title: "Hey",
       subtitle: "What would you \nlike to drink tonight?",
-      onSearchPressed: () => showSearchBottomSheet(context),
+      onSearchPressed: () async {
+        _isSearching = true;
+        await showSearchBottomSheet(context);
+      },
       children: [
         Consumer<HomeViewModel>(
           builder: (context, viewModel, child) {
             final cocktails = viewModel.cocktails;
 
-            if (cocktails.isNotEmpty) {
+            if (_shouldUpdateCardList(cocktails)) {
+              _firstCall = false;
+              _isSearching = false;
               _key.currentState?.addItemsStaggered(cocktails);
             }
 
