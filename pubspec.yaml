@@ -26,6 +26,7 @@ dependencies:
   injectable: ^1.5.0        # GetIt boilerplate generator trough decorators
   json_annotation: ^4.3.0   # Json Seriazliation Automated
   rxdart: ^0.27.2           # ReacviveX Observables
+  transparent_image: ^2.0.0 # Transparent image utility
 
 
 dev_dependencies:
