@@ -18,7 +18,18 @@ class CocktailService {
     ApplyingFilterEntity? filter,
   }) async {
     final queryString = filter?.name ?? '';
-    final rawResponse = await _api.get("/search.php?s=$queryString");
+    return _handleApiCall("/search.php?s=$queryString");
+  }
+
+  Future<List<CocktailEntity>> searchCocktailList({
+    ApplyingFilterEntity? filter,
+  }) async {
+    final queryString = _composeQueryString(filter);
+    return _handleApiCall("/search.php?f=$queryString");
+  }
+
+  Future<List<CocktailEntity>> _handleApiCall(String path) async {
+    final rawResponse = await _api.get(path);
     final apiResponse = ApiResponse<CocktailApiModel>.fromJson(rawResponse);
 
     return apiResponse.drinks
@@ -26,16 +37,11 @@ class CocktailService {
         .toList();
   }
 
-  //TODO FILTRO
-
   String _composeQueryString(ApplyingFilterEntity? filter) {
     if (filter == null) return "";
 
     String queryString = "";
 
-    if (filter.name != null) {
-      queryString += "s=${filter.name}";
-    }
     if (filter.alcoholPresence != null) {
       queryString = _conditionalAppendQueryItemTo(queryString) +
           "a=${_alcoholPresenceToString(filter.alcoholPresence!)}";
