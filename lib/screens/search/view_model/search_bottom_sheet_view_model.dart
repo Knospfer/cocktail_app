@@ -22,11 +22,13 @@ class SearchBottomSheetViewModel extends ChangeNotifier {
     String? category,
     AlcoholPresence? alcoholPresence,
     List<String>? ingredients,
+    int? itemPerSearch,
   }) {
     filter ??= ApplyingFilterEntity();
     if (name != null) filter?.name = name;
     if (category != null) filter?.category = category;
     if (alcoholPresence != null) filter?.alcoholPresence = alcoholPresence;
     if (ingredients != null) filter?.ingredients = ingredients;
+    if (itemPerSearch != null) filter?.itemPerSearch = itemPerSearch;
   }
 }

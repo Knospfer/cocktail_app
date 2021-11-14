@@ -20,6 +20,7 @@ class SearchBottomSheet extends StatefulWidget {
 class _SearchBottomSheetState extends State<SearchBottomSheet> {
   final _controller = TextEditingController();
   AlcoholPresence _alcoholPresence = AlcoholPresence.present;
+  double _sliderValue = 5;
 
   void _updateRadioState(AlcoholPresence? value) {
     if (value == null) return;
@@ -34,12 +35,14 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
     String? category,
     AlcoholPresence? alcoholPresence,
     List<String>? ingredients,
+    int? itemPerSearch,
   }) =>
       fetchViewModel<SearchBottomSheetViewModel>(context).updateFilter(
         name: name,
         category: category,
         alcoholPresence: alcoholPresence,
         ingredients: ingredients,
+        itemPerSearch: itemPerSearch,
       );
 
   @override
@@ -148,6 +151,46 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
           child: AlcoholPresenceRadioGroup(
             groupValue: _alcoholPresence,
             onChanged: _updateRadioState,
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  top: 20,
+                  bottom: 10,
+                ),
+                child: Text(
+                  "Cocktail per Search",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: ColorPalette.white,
+                  ),
+                ),
+              ),
+              Slider(
+                thumbColor: ColorPalette.white,
+                value: _sliderValue,
+                min: 0,
+                max: 25,
+                label: _sliderValue < 25 ? "${_sliderValue.toInt()}" : "MAX",
+                divisions: 5,
+                onChanged: (value) {
+                  if (value >= 5) {
+                    setState(() {
+                      _sliderValue = value;
+                    });
+                    _updateFilterState(itemPerSearch: _sliderValue.toInt());
+                  }
+                },
+              ),
+              const VerticalPadding(padding: 20),
+            ],
           ),
         )
       ],
