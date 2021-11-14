@@ -17,15 +17,15 @@ class CocktailService {
   Future<List<CocktailEntity>> fetchCocktailList({
     ApplyingFilterEntity? filter,
   }) async {
-    final queryStirng = _composeQueryString(filter);
-    final rawResponse = await _api.get("/search.php?s=$queryStirng");
-    final apiModelResponse =
-        ApiResponse<CocktailApiModel>.fromJson(rawResponse);
+    final rawResponse = await _api.get("/search.php?s=${filter?.name}");
+    final apiResponse = ApiResponse<CocktailApiModel>.fromJson(rawResponse);
 
-    return apiModelResponse.drinks
+    return apiResponse.drinks
         .map((e) => CocktailEntity.fromApiModel(e))
         .toList();
   }
+
+  //TODO FILTRO
 
   String _composeQueryString(ApplyingFilterEntity? filter) {
     if (filter == null) return "";
@@ -33,17 +33,18 @@ class CocktailService {
     String queryString = "";
 
     if (filter.name != null) {
-      queryString += "${filter.name}";
+      queryString += "s=${filter.name}";
     }
     if (filter.alcoholPresence != null) {
-      _conditionalAppendQueryItemTo(queryString) +
+      queryString = _conditionalAppendQueryItemTo(queryString) +
           "a=${_alcoholPresenceToString(filter.alcoholPresence!)}";
     }
     if (filter.category != null) {
-      _conditionalAppendQueryItemTo(queryString) + "c=${filter.category}";
+      queryString =
+          _conditionalAppendQueryItemTo(queryString) + "c=${filter.category}";
     }
     if (filter.ingredients != null) {
-      _conditionalAppendQueryItemTo(queryString) +
+      queryString = _conditionalAppendQueryItemTo(queryString) +
           "i=" +
           _composeIngredientQueryString(filter.ingredients!);
     }
