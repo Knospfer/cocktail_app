@@ -26,7 +26,8 @@ class CocktailService {
     ///IMPROVE: this is NOT ideal. In this way the app
     ///can expose the server to a severe overhead
     ///and the app seems slow during the wait
-    await Future.forEach<CocktailApiModel>(idList.take(5), (element) async {
+    await Future.forEach<CocktailApiModel>(idList.take(filter.itemPerSearch),
+        (element) async {
       //TODO AGGIUNGI NUMERO ELEMTNI PER RICERCA
       final completeItem = await _findElementBy(element.idDrink);
       completeList.add(completeItem);
