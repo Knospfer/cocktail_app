@@ -30,7 +30,7 @@ class CocktailEntity {
       : id = model.idDrink,
         name = model.strDrink,
         instructions = model.strInstructions,
-        category = model.strCategory,
+        category = model.strCategory ?? "",
         image = model.strDrinkThumb,
         favourite = false,
         ingredients = [
