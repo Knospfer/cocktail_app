@@ -33,6 +33,11 @@ abstract class Store<T> {
         );
   }
 
+  Future<List<T>> get() async {
+    final list = await _store.find(_database);
+    return list.map((e) => fromJson(e.value)).toList();
+  }
+
   Future<void> add(T item) async {
     await _database.transaction((transaction) async {
       await _store.add(transaction, itemToJson(item));
