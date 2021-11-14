@@ -33,7 +33,14 @@ class SliverListChipHorizonalSelectable extends StatefulWidget {
 class _SliverListChipHorizonalSelectableState
     extends State<SliverListChipHorizonalSelectable> {
   ChipItem? singleSelectionModeItem;
-  List<String> multiSelectionModeItem = [];
+  Map<String, bool> _multiSelectionModeItems = {};
+
+  @override
+  void initState() {
+    _multiSelectionModeItems =
+        widget.items.asMap().map((key, chip) => MapEntry(chip.value, false));
+    super.initState();
+  }
 
   void _select(ChipItem item) => widget.singleSlectionEnabled
       ? _singleSelectionSelect(item)
@@ -43,13 +50,17 @@ class _SliverListChipHorizonalSelectableState
     setState(() {
       item.selected = !item.selected;
     });
-    if (!item.selected) _removeFromMultiSelection(item);
-    multiSelectionModeItem.add(item.value);
-    widget.onSelection(multiSelectionModeItem);
+    _multiSelectionModeItems.update(item.value, (_) => item.selected);
+    final list = _populateResultList();
+    widget.onSelection(list);
   }
 
-  void _removeFromMultiSelection(ChipItem item) {
-    multiSelectionModeItem.removeWhere((element) => element == item.value);
+  List<String> _populateResultList() {
+    final List<String> list = [];
+    _multiSelectionModeItems.forEach((key, value) {
+      if (value) list.add(key);
+    });
+    return list;
   }
 
   void _singleSelectionSelect(ChipItem item) {
@@ -60,6 +71,10 @@ class _SliverListChipHorizonalSelectableState
     widget.onSelection([item.value]);
   }
 
+  bool _elementTrueOrNull(String element) =>
+      _multiSelectionModeItems[element] != null &&
+      _multiSelectionModeItems[element]!;
+
   Color _backgroundColor(ChipItem item) => widget.singleSlectionEnabled
       ? _singleSelectionBackground(item)
       : _multiSelecitonBackgroundColor(item);
@@ -69,7 +84,9 @@ class _SliverListChipHorizonalSelectableState
           ? ColorPalette.deepRed
           : ColorPalette.white;
   Color _multiSelecitonBackgroundColor(ChipItem item) =>
-      item.selected ? ColorPalette.deepRed : ColorPalette.white;
+      _elementTrueOrNull(item.value)
+          ? ColorPalette.deepRed
+          : ColorPalette.white;
 
   Color _textColor(ChipItem item) => widget.singleSlectionEnabled
       ? _singleSelectionTextColor(item)
@@ -81,7 +98,7 @@ class _SliverListChipHorizonalSelectableState
           : ColorPalette.black;
 
   Color _multiSelecitonTextColor(ChipItem item) =>
-      item.selected ? ColorPalette.white : ColorPalette.black;
+      _elementTrueOrNull(item.value) ? ColorPalette.white : ColorPalette.black;
 
   @override
   Widget build(BuildContext context) {
