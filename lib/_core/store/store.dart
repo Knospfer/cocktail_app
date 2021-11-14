@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:sembast/sembast.dart';
 
 abstract class Store<T> {
   final Database _database;
   late final StoreRef<int, Map<String, Object?>> _store;
 
-  late final Stream<List> storeStatus;
+  final _subject = BehaviorSubject<List<T>>();
+  Stream<List<T>> get storeStatus => _subject.stream;
 
   @protected
   String getItemKey(T item);
@@ -28,9 +30,11 @@ abstract class Store<T> {
   Store(this._database, {required name}) {
     _store = intMapStoreFactory.store(name);
 
-    storeStatus = _store.query().onSnapshots(_database).map(
-          (event) => event.map((e) => fromJson(e.value)).toList(),
-        );
+    _subject.addStream(
+      _store.query().onSnapshots(_database).map(
+            (event) => event.map((e) => fromJson(e.value)).toList(),
+          ),
+    );
   }
 
   Future<List<T>> get() async {
