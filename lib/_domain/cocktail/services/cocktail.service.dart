@@ -17,15 +17,40 @@ class CocktailService {
   Future<List<CocktailEntity>> fetchCocktailList({
     ApplyingFilterEntity? filter,
   }) async {
-    final queryString = filter?.name ?? '';
+    if (filter == null || filter.name != null) {
+      return _searchCocktailList(name: filter?.name);
+    }
+    final idList = await _findCocktailList(filter: filter);
+    final List<CocktailEntity> completeList = [];
+
+    ///IMPROVE: this is NOT ideal. In this way the app
+    ///can expose the server to a severe overhead
+    ///and the app seems slow during the wait
+    await Future.forEach<CocktailApiModel>(idList.take(10), (element) async {
+      //TODO AGGIUNGI NUMERO ELEMTNI PER RICERCA
+      final completeItem = await _findElementBy(element.idDrink);
+      completeList.add(completeItem);
+    });
+    return completeList;
+  }
+
+  Future<List<CocktailEntity>> _searchCocktailList({String? name}) async {
+    final queryString = name ?? '';
     return _handleApiCall("/search.php?s=$queryString");
   }
 
-  Future<List<CocktailEntity>> searchCocktailList({
+  Future<List<CocktailApiModel>> _findCocktailList({
     ApplyingFilterEntity? filter,
   }) async {
     final queryString = _composeQueryString(filter);
-    return _handleApiCall("/search.php?f=$queryString");
+    final rawResponse = await _api.get("/filter.php?$queryString");
+    final apiResponse = ApiResponse<CocktailApiModel>.fromJson(rawResponse);
+    return apiResponse.drinks;
+  }
+
+  Future<CocktailEntity> _findElementBy(String id) async {
+    final response = await _handleApiCall("/lookup.php?i=$id");
+    return response.first;
   }
 
   Future<List<CocktailEntity>> _handleApiCall(String path) async {
