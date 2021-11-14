@@ -63,6 +63,11 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                 ),
                 const VerticalPadding(padding: 10),
                 CupertinoTextField(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: ColorPalette.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   placeholder: "Margarita..",
                   controller: _controller,
                   cursorColor: ColorPalette.black,
