@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             return StaggeredSliverList<CocktailEntity>(
               key: _key,
-              builder: (cocktail) {
+              builder: (_, cocktail) {
                 return GestureDetector(
                   behavior: HitTestBehavior.deferToChild,
                   onTap: () {

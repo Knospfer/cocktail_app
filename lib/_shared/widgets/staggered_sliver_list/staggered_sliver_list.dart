@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 ///To do so, use [GlobalKey<StaggeredSliverListState>()]
 ///to call [addItemsStaggered] method from anywhere.
 class StaggeredSliverList<T> extends StatefulWidget {
-  final Widget Function(T item) builder;
+  final Widget Function(int index, T item) builder;
 
   const StaggeredSliverList({Key? key, required this.builder})
       : super(key: key);
@@ -37,17 +37,15 @@ class StaggeredSliverListState<T> extends State<StaggeredSliverList<T>> {
     });
   }
 
-  void removeItem(T item) {
+  void removeItem(int index, T item) {
     if (_sliverIndex - 1 >= 0) {
-      _sliverIndex--;
       _key.currentState?.removeItem(
-        _sliverIndex,
+        index,
         (context, animation) {
-          final item = _items.elementAt(_sliverIndex);
-          _items.removeAt(_sliverIndex);
+          _items.removeAt(index);
 
           return StaggereSliverListItem(
-            child: widget.builder(item),
+            child: widget.builder(index, item),
             animation: animation,
           );
         },
@@ -82,7 +80,7 @@ class StaggeredSliverListState<T> extends State<StaggeredSliverList<T>> {
                 ? const EdgeInsets.only(bottom: 80)
                 : EdgeInsets.zero,
             child: StaggereSliverListItem(
-              child: widget.builder(item),
+              child: widget.builder(index, item),
               animation: animation,
             ),
           );

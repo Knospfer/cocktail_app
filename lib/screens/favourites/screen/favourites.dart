@@ -36,31 +36,32 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
       fetchViewModel<FavouritesViewModel>(context)
           .seachFavourite(filter: filter);
 
-  _removeFromFavourites(CocktailEntity cocktail) {
+  _removeFromFavourites(int index, CocktailEntity cocktail) {
     fetchViewModel<FavouritesViewModel>(context).removeFromFavourites(cocktail);
-    _key.currentState?.removeItem(cocktail);
+    _key.currentState?.removeItem(index, cocktail);
   }
 
-  Future<void> _navigateToDetail(CocktailEntity cocktail) async {
+  Future<void> _navigateToDetail(int index, CocktailEntity cocktail) async {
     final selectedCocktail = await Navigator.pushNamed(
       context,
       Routes.detail,
       arguments: cocktail,
     );
     _checkUpdatedCocktailStillFavourite(
-        selectedCocktail as CocktailEntity, cocktail);
+        index, selectedCocktail as CocktailEntity, cocktail);
   }
 
   void _checkUpdatedCocktailStillFavourite(
+    int oldIndex,
     CocktailEntity? updatedCocktail,
     CocktailEntity oldCocktail,
   ) {
     if (updatedCocktail == null) {
-      _key.currentState?.removeItem(oldCocktail);
+      _key.currentState?.removeItem(oldIndex, oldCocktail);
       return;
     }
     if (!updatedCocktail.favourite) {
-      _key.currentState?.removeItem(oldCocktail);
+      _key.currentState?.removeItem(oldIndex, oldCocktail);
       return;
     }
   }
@@ -95,15 +96,15 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
 
             return StaggeredSliverList<CocktailEntity>(
               key: _key,
-              builder: (cocktail) {
+              builder: (index, cocktail) {
                 return GestureDetector(
                   behavior: HitTestBehavior.deferToChild,
                   onTap: () {
-                    if (cocktail.favourite) _navigateToDetail(cocktail);
+                    if (cocktail.favourite) _navigateToDetail(index, cocktail);
                   },
                   child: CocktailCard(
                     onFavouriteTapped: () {
-                      _removeFromFavourites(cocktail);
+                      _removeFromFavourites(index, cocktail);
                     },
                     cocktail: cocktail,
                   ),
