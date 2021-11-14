@@ -40,11 +40,10 @@ class StaggeredSliverListState<T> extends State<StaggeredSliverList<T>> {
   void removeItem(T item) {
     if (_sliverIndex - 1 >= 0) {
       _sliverIndex--;
-
       _key.currentState?.removeItem(
         _sliverIndex,
         (context, animation) {
-          final item = _items[_sliverIndex];
+          final item = _items.elementAt(_sliverIndex);
           _items.removeAt(_sliverIndex);
 
           return StaggereSliverListItem(
@@ -56,12 +55,26 @@ class StaggeredSliverListState<T> extends State<StaggeredSliverList<T>> {
     }
   }
 
+  void emptyList() {
+    for (int i = 0; i <= _items.length - 1; i++) {
+      _key.currentState?.removeItem(0,
+          (BuildContext context, Animation<double> animation) {
+        return StaggereSliverListItem(
+          child: Container(color: Colors.grey),
+          animation: animation,
+        );
+      });
+    }
+    _items.clear();
+    _sliverIndex = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SliverAnimatedList(
       key: _key,
       itemBuilder: (context, index, animation) {
-        final item = _items[index];
+        final item = _items.elementAt(index);
 
         if (item != null) {
           return StaggereSliverListItem(
