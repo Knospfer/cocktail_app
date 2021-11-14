@@ -2,14 +2,14 @@ import 'dart:async';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_domain/cocktail/presentation/cocktail_favourite_handler.dart';
 import 'package:cocktail_app/_domain/cocktail/services/cocktail.service.dart';
-import 'package:cocktail_app/_domain/cocktail/services/favourite_cocktail.service.dart';
 import 'package:cocktail_app/_domain/cocktail/store/cocktail.store.dart';
 import 'package:cocktail_app/_domain/filter/filter_entities.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
 @injectable
-class HomeViewModel extends CocktailFavouriteHandler {
+class HomeViewModel extends ChangeNotifier with CocktailFavouriteHandler {
   final CocktailService _cocktailService;
   final CocktailStore _favouritesStore;
 
@@ -21,8 +21,7 @@ class HomeViewModel extends CocktailFavouriteHandler {
   HomeViewModel(
     this._cocktailService,
     this._favouritesStore,
-    FavouriteCocktailService _favouriteCocktailService,
-  ) : super(_favouriteCocktailService) {
+  ) {
     _subscription = CombineLatestStream(
       [
         _favouritesStore.storeStatus,

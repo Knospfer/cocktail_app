@@ -1,15 +1,13 @@
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_domain/cocktail/services/favourite_cocktail.service.dart';
-import 'package:flutter/material.dart';
+import 'package:cocktail_app/dependency_injection.dart';
 
-class CocktailFavouriteHandler extends ChangeNotifier {
-  final FavouriteCocktailService _favouriteCocktailService;
-
-  CocktailFavouriteHandler(this._favouriteCocktailService);
-
+mixin CocktailFavouriteHandler {
   Future<void> toggleFavourite(CocktailEntity cocktail) async {
+    final favouriteCocktailService = getIt<FavouriteCocktailService>();
+    
     cocktail.favourite
-        ? await _favouriteCocktailService.removeFromFavourites(cocktail)
-        : await _favouriteCocktailService.addToFavourites(cocktail);
+        ? await favouriteCocktailService.removeFromFavourites(cocktail)
+        : await favouriteCocktailService.addToFavourites(cocktail);
   }
 }

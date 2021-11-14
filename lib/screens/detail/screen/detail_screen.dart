@@ -52,7 +52,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       isFavourite: widget.cocktail.favourite,
                       onFavouriteTapped: () {
                         fetchViewModel<DetailViewModel>(context)
-                            .toggleFavourite(widget.cocktail);
+                            .toggle(widget.cocktail);
                       },
                     );
                   },
