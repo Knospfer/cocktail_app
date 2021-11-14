@@ -17,7 +17,7 @@ class CocktailService {
   Future<List<CocktailEntity>> fetchCocktailList({
     ApplyingFilterEntity? filter,
   }) async {
-    if (filter == null || filter.name == null) {
+    if (filter == null || filter.searchByNameMode) {
       return _searchCocktailList(name: filter?.name);
     }
     final idList = await _findCocktailList(filter: filter);

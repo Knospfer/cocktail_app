@@ -21,6 +21,9 @@ class ApplyingFilterEntity {
   AlcoholPresence? alcoholPresence;
   int itemPerSearch;
 
+  get searchByNameMode =>
+      category == null || ingredients == null || alcoholPresence == null;
+
   ApplyingFilterEntity({
     this.name,
     this.category,
