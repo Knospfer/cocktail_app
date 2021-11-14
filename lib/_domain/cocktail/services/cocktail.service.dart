@@ -17,7 +17,8 @@ class CocktailService {
   Future<List<CocktailEntity>> fetchCocktailList({
     ApplyingFilterEntity? filter,
   }) async {
-    final rawResponse = await _api.get("/search.php?s=${filter?.name}");
+    final queryString = filter?.name ?? '';
+    final rawResponse = await _api.get("/search.php?s=$queryString");
     final apiResponse = ApiResponse<CocktailApiModel>.fromJson(rawResponse);
 
     return apiResponse.drinks
