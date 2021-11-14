@@ -1,3 +1,4 @@
+import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:cocktail_app/_shared/widgets/main_screen_scaffold/screen_header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,8 @@ class MainScreenScaffold extends StatelessWidget {
         slivers: [
           SliverAppBar(
             expandedHeight: 200,
-            
+            pinned: true,
+            backgroundColor: ColorPalette.black,
             actions: [
               IconButton(
                 onPressed: onSearchPressed,
