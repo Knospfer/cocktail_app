@@ -18,9 +18,4 @@ class HomeViewModel extends CocktailFavouriteHandler {
     cocktails = await _cocktailService.fetchCocktailList();
     notifyListeners();
   }
-
-  void updateCocktailsManually(List<CocktailEntity> newList) {
-    cocktails = newList;
-    notifyListeners();
-  }
 }

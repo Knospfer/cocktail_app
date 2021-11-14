@@ -45,14 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future _showSearchBottomSheet() async {
-    final list = await showModalBottomSheet(
+    final filter = await showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
       builder: (_) => const SearchBottomSheetBuilder(),
     );
-    if (list != null) {
-      fetchViewModel<HomeViewModel>(context).updateCocktailsManually(list);
-    }
+    print(filter);
   }
 
   @override
