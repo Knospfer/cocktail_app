@@ -5,7 +5,6 @@ import 'package:cocktail_app/_shared/utility_methods/utility_methods.dart';
 import 'package:cocktail_app/_shared/widgets/favourite_button.dart';
 import 'package:cocktail_app/screens/detail/view_model/detail_view_model.dart';
 import 'package:cocktail_app/screens/detail/widgets/data_container/data_container.dart';
-import 'package:cocktail_app/screens/qr/screens/qr_modal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -72,11 +71,13 @@ class _DetailScreenState extends State<DetailScreen> {
                     fadeInDuration: const Duration(milliseconds: 200),
                   ),
                 ),
-                title: Text(
-                  widget.cocktail.name,
-                  style: const TextStyle(
-                    color: ColorPalette.white,
-                    fontWeight: FontWeight.bold,
+                title: FittedBox(
+                  child: Text(
+                    widget.cocktail.name,
+                    style: const TextStyle(
+                      color: ColorPalette.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
