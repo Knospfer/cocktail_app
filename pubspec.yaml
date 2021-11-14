@@ -25,6 +25,7 @@ dependencies:
   get_it: ^7.2.0            # Service Locator
   injectable: ^1.5.0        # GetIt boilerplate generator trough decorators
   json_annotation: ^4.3.0   # Json Seriazliation Automated
+  rxdart: ^0.27.2           # ReacviveX Observables
 
 
 dev_dependencies:
