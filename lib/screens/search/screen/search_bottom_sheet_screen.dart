@@ -49,10 +49,10 @@ class _SearchBottomSheetScreenState extends State<SearchBottomSheetScreen> {
             actions: [
               IconButton(
                 onPressed: () {
-                  final filter =
-                      fetchViewModel<SearchBottomSheetViewModel>(context)
-                          .filter;
-                  Navigator.pop(context, filter);
+                  final viewModel =
+                      fetchViewModel<SearchBottomSheetViewModel>(context);
+                  viewModel.updateFilter();
+                  Navigator.pop(context, viewModel.filter);
                 },
                 icon: const Icon(Icons.search),
               )
