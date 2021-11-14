@@ -23,7 +23,10 @@ class HomeViewModel extends CocktailFavouriteHandler {
     FavouriteCocktailService _favouriteCocktailService,
   ) : super(_favouriteCocktailService) {
     _subscription = CombineLatestStream(
-      [_favouritesStore.storeStatus, _cocktailSubject.stream],
+      [
+        _favouritesStore.storeStatus,
+        _cocktailSubject.stream,
+      ],
       _mapApiCocktailWithPersitentFavourites,
     ).listen(_updateCocktailStatus);
   }
