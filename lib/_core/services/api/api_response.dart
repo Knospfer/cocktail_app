@@ -9,6 +9,7 @@ part 'api_response.g.dart';
 @JsonSerializable(explicitToJson: true)
 class ApiResponse<T extends Serializable> {
   @_Converter()
+  @JsonKey(defaultValue: [])
   final List<T> drinks;
 
   const ApiResponse(this.drinks);
