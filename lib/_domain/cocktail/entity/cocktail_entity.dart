@@ -10,7 +10,7 @@ class CocktailEntity {
   final String name;
   final String? instructions;
   final String category;
-  final String? image;
+  final String image;
   late final List<String?> ingredients;
   late final AlcoholPresence alcoholPresence;
   bool favourite;
@@ -21,8 +21,8 @@ class CocktailEntity {
     required this.category,
     required this.alcoholPresence,
     required this.ingredients,
+    required this.image,
     this.instructions,
-    this.image,
     this.favourite = false,
   });
 
@@ -31,7 +31,7 @@ class CocktailEntity {
         name = model.strDrink,
         instructions = model.strInstructions,
         category = model.strCategory ?? "",
-        image = model.strDrinkThumb,
+        image = model.strDrinkThumb ?? "",
         favourite = false,
         ingredients = [
           model.strIngredient1,
