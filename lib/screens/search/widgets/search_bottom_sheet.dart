@@ -54,6 +54,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const VerticalPadding(padding: 10),
                 const Text(
                   "Name",
                   style: TextStyle(
@@ -80,11 +81,11 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                     Navigator.pop(context, filter);
                   },
                 ),
-                const VerticalPadding(padding: 20),
+                const VerticalPadding(padding: 30),
                 const Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    "Advanded Search",
+                    "Advanced Search",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: ColorPalette.white,
