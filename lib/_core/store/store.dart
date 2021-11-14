@@ -42,4 +42,8 @@ abstract class Store<T> {
       await _store.delete(transaction, finder: finder);
     });
   }
+
+  Future<void> deleteSore() async {
+    await _store.delete(_database);
+  }
 }
