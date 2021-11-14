@@ -4,6 +4,7 @@ import 'package:cocktail_app/_shared/widgets/cocktail_card/cocktail_chip.dart';
 import 'package:cocktail_app/_shared/widgets/favourite_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class CocktailCard extends StatelessWidget {
   final CocktailEntity cocktail;
@@ -19,56 +20,64 @@ class CocktailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 200,
-      margin: const EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 20, left: 16, right: 16, top: 10),
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: NetworkImage(cocktail.image ?? ""),
-        ),
       ),
-      child: Container(
-        color: Colors.black26,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: CocktailChip(cocktail: cocktail),
+      child: Stack(
+        children: [
+          SizedBox.expand(
+            child: FadeInImage.memoryNetwork(
+              fit: BoxFit.cover,
+              placeholder: kTransparentImage,
+              image: cocktail.image,
+              fadeInDuration: const Duration(milliseconds: 200),
             ),
-            const Expanded(child: SizedBox()),
-            Text(
-              cocktail.name,
-              style: const TextStyle(
-                color: ColorPalette.white,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
+          ),
+          Container(
+            color: Colors.black26,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 10,
             ),
-            Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Text(
-                    cocktail.category,
-                    style: const TextStyle(
-                      color: ColorPalette.white,
-                      fontSize: 20,
-                    ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: CocktailChip(cocktail: cocktail),
+                ),
+                const Expanded(child: SizedBox()),
+                Text(
+                  cocktail.name,
+                  style: const TextStyle(
+                    color: ColorPalette.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                FavouriteButton(
-                  isFavourite: cocktail.favourite,
-                  onFavouriteTapped: onFavouriteTapped,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        cocktail.category,
+                        style: const TextStyle(
+                          color: ColorPalette.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    FavouriteButton(
+                      isFavourite: cocktail.favourite,
+                      onFavouriteTapped: onFavouriteTapped,
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
