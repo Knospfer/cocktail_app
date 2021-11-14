@@ -30,7 +30,4 @@ class SearchBottomSheetViewModel extends ChangeNotifier {
     if (alcoholPresence != null) filter?.alcoholPresence = alcoholPresence;
     if (ingredients != null) filter?.ingredients = ingredients;
   }
-
-  Future<List<CocktailEntity>?> applyFilter() =>
-      _filterService.applyFilter(filter);
 }

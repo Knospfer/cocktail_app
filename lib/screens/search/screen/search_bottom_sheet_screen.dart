@@ -1,3 +1,4 @@
+import 'package:cocktail_app/_shared/utility_methods/utility_methods.dart';
 import 'package:cocktail_app/screens/search/view_model/search_bottom_sheet_view_model.dart';
 import 'package:cocktail_app/screens/search/widgets/search_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,7 @@ class SearchBottomSheetScreen extends StatefulWidget {
 class _SearchBottomSheetScreenState extends State<SearchBottomSheetScreen> {
   @override
   void initState() {
-    Provider.of<SearchBottomSheetViewModel>(context, listen: false)
-        .createSearchFilter();
+    fetchViewModel<SearchBottomSheetViewModel>(context).createSearchFilter();
     super.initState();
   }
 
@@ -48,12 +48,11 @@ class _SearchBottomSheetScreenState extends State<SearchBottomSheetScreen> {
             ),
             actions: [
               IconButton(
-                onPressed: () async {
-                  final list = await Provider.of<SearchBottomSheetViewModel>(
-                    context,
-                    listen: false,
-                  ).applyFilter();
-                  Navigator.pop(context, list);
+                onPressed: () {
+                  final filter =
+                      fetchViewModel<SearchBottomSheetViewModel>(context)
+                          .filter;
+                  Navigator.pop(context, filter);
                 },
                 icon: const Icon(Icons.search),
               )

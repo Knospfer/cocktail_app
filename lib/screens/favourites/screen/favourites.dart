@@ -1,5 +1,6 @@
 import 'package:cocktail_app/_core/routes/routes.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
+import 'package:cocktail_app/_shared/utility_methods/utility_methods.dart';
 import 'package:cocktail_app/_shared/widgets/cocktail_card/cocktail_card.dart';
 import 'package:cocktail_app/_shared/widgets/main_screen_scaffold/main_screen_scaffold.dart';
 import 'package:cocktail_app/_shared/widgets/staggered_sliver_list/staggered_sliver_list.dart';
@@ -24,12 +25,11 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     super.initState();
   }
 
-  _fetchFavourites() => Provider.of<FavouritesViewModel>(context, listen: false)
-      .fetchFavourites();
+  _fetchFavourites() =>
+      fetchViewModel<FavouritesViewModel>(context).fetchFavourites();
 
   _removeFromFavourites(CocktailEntity cocktail) {
-    Provider.of<FavouritesViewModel>(context, listen: false)
-        .removeFromFavourites(cocktail);
+    fetchViewModel<FavouritesViewModel>(context).removeFromFavourites(cocktail);
     _key.currentState?.removeItem(cocktail);
   }
 

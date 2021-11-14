@@ -1,13 +1,13 @@
 import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:cocktail_app/_core/enums/alcohol_presence.dart';
 import 'package:cocktail_app/_domain/filter/filter_entities.dart';
+import 'package:cocktail_app/_shared/utility_methods/utility_methods.dart';
 import 'package:cocktail_app/_shared/widgets/utility/paddings.dart';
 import 'package:cocktail_app/screens/search/view_model/search_bottom_sheet_view_model.dart';
 import 'package:cocktail_app/screens/search/widgets/alcohol_presence_radio_group/alcohol_presence_radio_group.dart';
 import 'package:cocktail_app/screens/search/widgets/sliver_list_chip_horizontal_selectable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SearchBottomSheet extends StatefulWidget {
   final FilterDataEntity filter;
@@ -35,8 +35,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
     AlcoholPresence? alcoholPresence,
     List<String>? ingredients,
   }) =>
-      Provider.of<SearchBottomSheetViewModel>(context, listen: false)
-          .updateFilter(
+      fetchViewModel<SearchBottomSheetViewModel>(context).updateFilter(
         name: name,
         category: category,
         alcoholPresence: alcoholPresence,

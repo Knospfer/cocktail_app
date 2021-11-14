@@ -1,5 +1,6 @@
 import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
+import 'package:cocktail_app/_shared/utility_methods/utility_methods.dart';
 import 'package:cocktail_app/_shared/widgets/favourite_button.dart';
 import 'package:cocktail_app/screens/detail/view_model/detail_view_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,7 +37,7 @@ class _DetailScreenState extends State<DetailScreen> {
               return FavouriteButton(
                 isFavourite: widget.cocktail.favourite,
                 onFavouriteTapped: () {
-                  Provider.of<DetailViewModel>(context, listen: false)
+                  fetchViewModel<DetailViewModel>(context)
                       .toggleFavourite(widget.cocktail);
                 },
               );
