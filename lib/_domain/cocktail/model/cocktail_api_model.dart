@@ -7,7 +7,7 @@ part 'cocktail_api_model.g.dart';
 @immutable
 @JsonSerializable()
 class CocktailApiModel extends Serializable {
-  final String dateModified;
+  final String? dateModified;
   final String idDrink;
   final String strAlcoholic;
   final String strCategory;
