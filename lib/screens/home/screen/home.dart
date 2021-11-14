@@ -1,5 +1,6 @@
 import 'package:cocktail_app/_core/routes/routes.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
+import 'package:cocktail_app/_domain/filter/filter_entities.dart';
 import 'package:cocktail_app/_shared/utility_methods/utility_methods.dart';
 import 'package:cocktail_app/_shared/widgets/cocktail_card/cocktail_card.dart';
 import 'package:cocktail_app/_shared/widgets/main_screen_scaffold/main_screen_scaffold.dart';
@@ -30,8 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
   _toggleFavourites(CocktailEntity cocktail) =>
       fetchViewModel<HomeViewModel>(context).toggleFavourite(cocktail);
 
-  _fetchCocktails() =>
-      fetchViewModel<HomeViewModel>(context).fetchCocktailList();
+  _fetchCocktails({ApplyingFilterEntity? filter}) =>
+      fetchViewModel<HomeViewModel>(context).fetchCocktailList(filter: filter);
 
   Future<void> _navigateToDetail(CocktailEntity cocktail) async {
     Navigator.pushNamed(
@@ -51,12 +52,17 @@ class _HomeScreenState extends State<HomeScreen> {
       subtitle: "What would you \nlike to drink tonight?",
       onSearchPressed: () async {
         _isSearching = true;
-        await showSearchBottomSheet(context);
+        final filter = await showSearchBottomSheet(context);
+        await _fetchCocktails(filter: filter);
       },
       children: [
         Consumer<HomeViewModel>(
           builder: (context, viewModel, child) {
             final cocktails = viewModel.cocktails;
+
+            if (_shouldUpdateCardList(cocktails) && _isSearching) {
+              _key.currentState?.emptyList();
+            }
 
             if (_shouldUpdateCardList(cocktails)) {
               _firstCall = false;
