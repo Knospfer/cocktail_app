@@ -9,8 +9,8 @@ part 'cocktail_api_model.g.dart';
 class CocktailApiModel extends Serializable {
   final String? dateModified;
   final String idDrink;
-  final String strAlcoholic;
-  final String strCategory;
+  final String? strAlcoholic;
+  final String? strCategory;
   final String strDrink;
   final String? strCreativeCommonsConfirmed;
   final String? strDrinkAlternate;
