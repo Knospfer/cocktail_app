@@ -17,7 +17,7 @@ class CocktailService {
   Future<List<CocktailEntity>> fetchCocktailList({
     ApplyingFilterEntity? filter,
   }) async {
-    if (filter == null || filter.name != null) {
+    if (filter == null || filter.name == null) {
       return _searchCocktailList(name: filter?.name);
     }
     final idList = await _findCocktailList(filter: filter);
@@ -28,7 +28,6 @@ class CocktailService {
     ///and the app seems slow during the wait
     await Future.forEach<CocktailApiModel>(idList.take(filter.itemPerSearch),
         (element) async {
-      //TODO AGGIUNGI NUMERO ELEMTNI PER RICERCA
       final completeItem = await _findElementBy(element.idDrink);
       completeList.add(completeItem);
     });
