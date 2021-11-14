@@ -1,5 +1,4 @@
 import 'package:cocktail_app/_core/enums/alcohol_presence.dart';
-import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_domain/filter/filter_entities.dart';
 import 'package:cocktail_app/_domain/filter/filter_service.dart';
 import 'package:flutter/cupertino.dart';
