@@ -1,9 +1,11 @@
 import 'package:cocktail_app/_core/colors/color_palette.dart';
+import 'package:cocktail_app/_core/routes/routes.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_shared/utility_methods/utility_methods.dart';
 import 'package:cocktail_app/_shared/widgets/favourite_button.dart';
 import 'package:cocktail_app/screens/detail/view_model/detail_view_model.dart';
 import 'package:cocktail_app/screens/detail/widgets/data_container/data_container.dart';
+import 'package:cocktail_app/screens/qr/screens/qr_modal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +41,11 @@ class _DetailScreenState extends State<DetailScreen> {
               actions: [
                 IconButton(
                   onPressed: () {
-                    //TODO genera qr
+                    Navigator.pushNamed(
+                      context,
+                      Routes.showQR,
+                      arguments: widget.cocktail,
+                    );
                   },
                   icon: const Icon(Icons.ios_share_outlined),
                 ),

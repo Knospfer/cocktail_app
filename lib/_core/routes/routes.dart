@@ -3,6 +3,7 @@ import 'package:cocktail_app/app_root_screen.dart';
 import 'package:cocktail_app/dependency_injection.dart';
 import 'package:cocktail_app/screens/detail/screen/detail_screen.dart';
 import 'package:cocktail_app/screens/detail/view_model/detail_view_model.dart';
+import 'package:cocktail_app/screens/qr/screens/qr_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +11,7 @@ import 'package:provider/provider.dart';
 class Routes {
   static const String root = "/";
   static const String detail = "/detail";
+  static const String showQR = "/show_qr";
 
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -22,6 +24,12 @@ class Routes {
             create: (_) => getIt<DetailViewModel>(),
             child: DetailScreen(cocktail: settings.arguments as CocktailEntity),
           ),
+        );
+      case showQR:
+        return _pageRoute(
+          settings,
+          (_) => QrModalScreen(cocktail: settings.arguments as CocktailEntity),
+          fullscreenDialog: true,
         );
       default:
         throw (Exception("Route not found!"));
