@@ -74,9 +74,25 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                   onSubmitted: (_) {
                     final name = _controller.text;
                     _updateFilterState(name: name);
+                    final filter =
+                        fetchViewModel<SearchBottomSheetViewModel>(context)
+                            .filter;
+                    Navigator.pop(context, filter);
                   },
                 ),
                 const VerticalPadding(padding: 20),
+                const Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    "Advanded Search",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: ColorPalette.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                const VerticalPadding(padding: 10),
                 const Text(
                   "Categories",
                   style: TextStyle(
