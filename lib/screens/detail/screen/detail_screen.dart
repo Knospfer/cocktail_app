@@ -2,8 +2,8 @@ import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_shared/utility_methods/utility_methods.dart';
 import 'package:cocktail_app/_shared/widgets/favourite_button.dart';
-import 'package:cocktail_app/_shared/widgets/utility/paddings.dart';
 import 'package:cocktail_app/screens/detail/view_model/detail_view_model.dart';
+import 'package:cocktail_app/screens/detail/widgets/data_container/data_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +22,6 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final cocktail = widget.cocktail;
 
     return Scaffold(
       body: WillPopScope(
@@ -42,9 +41,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   onPressed: () {
                     //TODO genera qr
                   },
-                  icon: const Icon(
-                    Icons.ios_share_outlined,
-                  ), //TODO icona per ios e per android
+                  icon: const Icon(Icons.ios_share_outlined),
                 ),
                 Consumer<DetailViewModel>(
                   builder: (context, viewModel, child) {
@@ -82,105 +79,7 @@ class _DetailScreenState extends State<DetailScreen> {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      "Name",
-                      style: TextStyle(
-                        color: ColorPalette.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const VerticalPadding(padding: 10),
-                    Text(
-                      cocktail.name,
-                      style: TextStyle(
-                          color: ColorPalette.white.withAlpha(200),
-                          fontSize: 16),
-                    ),
-                    Divider(
-                      color: ColorPalette.white.withAlpha(100),
-                    ),
-                    const Text(
-                      "Category",
-                      style: TextStyle(
-                        color: ColorPalette.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const VerticalPadding(padding: 10),
-                    Text(
-                      cocktail.category,
-                      style: TextStyle(
-                          color: ColorPalette.white.withAlpha(200),
-                          fontSize: 16),
-                    ),
-                    Divider(
-                      color: ColorPalette.white.withAlpha(100),
-                    ),
-                    const Text(
-                      "Alcoholic",
-                      style: TextStyle(
-                        color: ColorPalette.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const VerticalPadding(padding: 10),
-                    Text(
-                      cocktail.alcoholPresence.toString(),
-                      style: TextStyle(
-                          color: ColorPalette.white.withAlpha(200),
-                          fontSize: 16),
-                    ),
-                    Divider(
-                      color: ColorPalette.white.withAlpha(100),
-                    ),
-                    const Text(
-                      "Instruction",
-                      style: TextStyle(
-                        color: ColorPalette.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const VerticalPadding(padding: 10),
-                    Text(
-                      cocktail.instructions ?? "Not present",
-                      style: TextStyle(
-                          color: ColorPalette.white.withAlpha(200),
-                          fontSize: 16),
-                    ),
-                    Divider(
-                      color: ColorPalette.white.withAlpha(100),
-                    ),
-                    const Text(
-                      "Ingredients",
-                      style: TextStyle(
-                        color: ColorPalette.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const VerticalPadding(padding: 10),
-                    ...cocktail.ingredients.map(
-                      (i) => Padding(
-                        padding: EdgeInsets.only(bottom: 5),
-                        child: Text(
-                          i ?? "",
-                          style: TextStyle(
-                            color: ColorPalette.white.withAlpha(200),
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                child: DataContainer(cocktail: widget.cocktail),
               ),
             )
           ],
