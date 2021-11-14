@@ -28,7 +28,7 @@ class CocktailService {
     ///and the app seems slow during the wait
     await Future.forEach<CocktailApiModel>(idList.take(filter.itemPerSearch),
         (element) async {
-      final completeItem = await _findElementBy(element.idDrink);
+      final completeItem = await findElementBy(element.idDrink);
       completeList.add(completeItem);
     });
     return completeList;
@@ -48,7 +48,7 @@ class CocktailService {
     return apiResponse.drinks;
   }
 
-  Future<CocktailEntity> _findElementBy(String id) async {
+  Future<CocktailEntity> findElementBy(String id) async {
     final response = await _handleApiCall("/lookup.php?i=$id");
     return response.first;
   }
