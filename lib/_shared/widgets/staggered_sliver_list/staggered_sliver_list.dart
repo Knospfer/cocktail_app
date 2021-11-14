@@ -77,9 +77,14 @@ class StaggeredSliverListState<T> extends State<StaggeredSliverList<T>> {
         final item = _items.elementAt(index);
 
         if (item != null) {
-          return StaggereSliverListItem(
-            child: widget.builder(item),
-            animation: animation,
+          return Padding(
+            padding: index == _items.length - 1
+                ? const EdgeInsets.only(bottom: 80)
+                : EdgeInsets.zero,
+            child: StaggereSliverListItem(
+              child: widget.builder(item),
+              animation: animation,
+            ),
           );
         }
 
