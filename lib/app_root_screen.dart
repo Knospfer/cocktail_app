@@ -1,4 +1,5 @@
 import 'package:cocktail_app/_core/colors/color_palette.dart';
+import 'package:cocktail_app/_core/routes/routes.dart';
 import 'package:cocktail_app/_core/routes/tab_routes.dart';
 import 'package:cocktail_app/_shared/widgets/app_tab_bar.dart';
 import 'package:flutter/cupertino.dart';
@@ -52,7 +53,9 @@ class _AppRootScreenState extends State<AppRootScreen>
           alignment: Alignment.bottomCenter,
           height: 80,
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.qrScanner);
+            },
             backgroundColor: ColorPalette.deepRed,
             child: Theme(
               data: ThemeData(

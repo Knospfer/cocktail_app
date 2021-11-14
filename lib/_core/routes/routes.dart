@@ -4,6 +4,7 @@ import 'package:cocktail_app/dependency_injection.dart';
 import 'package:cocktail_app/screens/detail/screen/detail_screen.dart';
 import 'package:cocktail_app/screens/detail/view_model/detail_view_model.dart';
 import 'package:cocktail_app/screens/qr/screens/qr_modal.dart';
+import 'package:cocktail_app/screens/qr/screens/qr_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class Routes {
   static const String root = "/";
   static const String detail = "/detail";
   static const String showQR = "/show_qr";
+  static const String qrScanner = "/qr_scanner";
 
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -29,6 +31,12 @@ class Routes {
         return _pageRoute(
           settings,
           (_) => QrModalScreen(cocktail: settings.arguments as CocktailEntity),
+          fullscreenDialog: true,
+        );
+      case qrScanner:
+        return _pageRoute(
+          settings,
+          (_) => const QrScannerScreen(),
           fullscreenDialog: true,
         );
       default:
