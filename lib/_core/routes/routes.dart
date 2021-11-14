@@ -5,6 +5,7 @@ import 'package:cocktail_app/screens/detail/screen/detail_screen.dart';
 import 'package:cocktail_app/screens/detail/view_model/detail_view_model.dart';
 import 'package:cocktail_app/screens/qr/screens/qr_modal.dart';
 import 'package:cocktail_app/screens/qr/screens/qr_scanner.dart';
+import 'package:cocktail_app/screens/qr/view_model/qr_scanner_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +37,10 @@ class Routes {
       case qrScanner:
         return _pageRoute(
           settings,
-          (_) => const QrScannerScreen(),
+          (_) => ChangeNotifierProvider(
+            create: (_) => getIt<QrScannerScreenViewModel>(),
+            child: const QrScannerScreen(),
+          ),
           fullscreenDialog: true,
         );
       default:

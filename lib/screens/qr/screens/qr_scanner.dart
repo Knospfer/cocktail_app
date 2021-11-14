@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:cocktail_app/_core/routes/routes.dart';
+import 'package:cocktail_app/_shared/utility_methods/utility_methods.dart';
+import 'package:cocktail_app/screens/qr/view_model/qr_scanner_screen_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -14,7 +16,6 @@ class QrScannerScreen extends StatefulWidget {
 
 class _QrScannerScreenState extends State<QrScannerScreen> {
   final GlobalKey _qrKey = GlobalKey();
-  Barcode? _result;
   QRViewController? _controller;
 
   // In order to get hot reload to work we need to pause the camera if the platform
@@ -23,9 +24,9 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
   void reassemble() {
     super.reassemble();
     if (Platform.isAndroid) {
-      _controller!.pauseCamera();
+      _controller?.pauseCamera();
     } else if (Platform.isIOS) {
-      _controller!.resumeCamera();
+      _controller?.resumeCamera();
     }
   }
 
@@ -37,10 +38,17 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
 
   void _onQRViewCreated(QRViewController qrController) {
     _controller = qrController;
-    _controller?.scannedDataStream.take(1).listen((scanData) {
-      //TODO RICERCA PER ID
-      Navigator.pop(context);
-    });
+    _controller?.scannedDataStream.take(1).listen(_navitateToDetailAfterScan);
+  }
+
+  void _navitateToDetailAfterScan(Barcode scanData) async {
+    final code = scanData.code ?? "";
+    final cocktail = await fetchViewModel<QrScannerScreenViewModel>(context)
+        .findByIdsFromQRScan(code);
+    Navigator.pop(context);
+    if (cocktail != null) {
+      Navigator.pushNamed(context, Routes.detail, arguments: cocktail);
+    }
   }
 
   @override
