@@ -5,7 +5,7 @@ import 'package:cocktail_app/_shared/widgets/cocktail_card/cocktail_card.dart';
 import 'package:cocktail_app/_shared/widgets/main_screen_scaffold/main_screen_scaffold.dart';
 import 'package:cocktail_app/_shared/widgets/staggered_sliver_list/staggered_sliver_list.dart';
 import 'package:cocktail_app/screens/home/view_model/home_view_model.dart';
-import 'package:cocktail_app/screens/search/builder/show_search_bottom_sheet.dart';
+import 'package:cocktail_app/screens/search/utils/show_search_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
