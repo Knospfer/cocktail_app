@@ -4,6 +4,7 @@ import 'package:cocktail_app/_domain/cocktail/presentation/cocktail_favourite_ha
 import 'package:cocktail_app/_domain/cocktail/services/cocktail.service.dart';
 import 'package:cocktail_app/_domain/cocktail/services/favourite_cocktail.service.dart';
 import 'package:cocktail_app/_domain/cocktail/store/cocktail.store.dart';
+import 'package:cocktail_app/_domain/filter/filter_entities.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -31,8 +32,8 @@ class HomeViewModel extends CocktailFavouriteHandler {
     ).listen(_updateCocktailStatus);
   }
 
-  Future<void> fetchCocktailList() async {
-    final result = await _cocktailService.fetchCocktailList();
+  Future<void> fetchCocktailList({ApplyingFilterEntity? filter}) async {
+    final result = await _cocktailService.fetchCocktailList(filter: filter);
     _cocktailSubject.add(result);
   }
 
@@ -41,7 +42,7 @@ class HomeViewModel extends CocktailFavouriteHandler {
     final apiCocktails = items.elementAt(1) as List<CocktailEntity>;
 
     return _cocktailsWithFavouriteStatus(
-      cocktails: apiCocktails,
+      apiCocktails: apiCocktails,
       favourites: favourites,
     );
   }
@@ -50,16 +51,18 @@ class HomeViewModel extends CocktailFavouriteHandler {
   ///In this way will be much faster (o(1)) check if some item
   ///is present into the array (o(N))
   List<CocktailEntity> _cocktailsWithFavouriteStatus({
-    required List<CocktailEntity> cocktails,
+    required List<CocktailEntity> apiCocktails,
     required List<CocktailEntity> favourites,
   }) {
     final Map<String, CocktailEntity?> favouriteMap =
         favourites.asMap().map((key, value) => MapEntry(value.id, value));
 
-    return cocktails.map((entity) {
+    final mapped = apiCocktails.map((entity) {
       entity.favourite = favouriteMap[entity.id] != null;
       return entity;
     }).toList();
+
+    return mapped;
   }
 
   void _updateCocktailStatus(List<CocktailEntity> newList) {
