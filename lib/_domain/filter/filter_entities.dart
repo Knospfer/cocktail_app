@@ -14,13 +14,13 @@ class FilterDataEntity {
   });
 }
 
-class ApllyingFilterEntity {
+class ApplyingFilterEntity {
   String? name;
   String? category;
   List<String>? ingredients;
   AlcoholPresence? alcoholPresence;
 
-  ApllyingFilterEntity({
+  ApplyingFilterEntity({
     this.name,
     this.category,
     this.ingredients,

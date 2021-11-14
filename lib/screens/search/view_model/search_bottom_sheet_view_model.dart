@@ -8,7 +8,7 @@ import 'package:injectable/injectable.dart';
 class SearchBottomSheetViewModel extends ChangeNotifier {
   final FilterService _filterService;
   FilterDataEntity? filterData;
-  ApllyingFilterEntity? filter;
+  ApplyingFilterEntity? filter;
 
   SearchBottomSheetViewModel(this._filterService);
 
@@ -23,7 +23,7 @@ class SearchBottomSheetViewModel extends ChangeNotifier {
     AlcoholPresence? alcoholPresence,
     List<String>? ingredients,
   }) {
-    filter ??= ApllyingFilterEntity();
+    filter ??= ApplyingFilterEntity();
     if (name != null) filter?.name = name;
     if (category != null) filter?.category = category;
     if (alcoholPresence != null) filter?.alcoholPresence = alcoholPresence;
