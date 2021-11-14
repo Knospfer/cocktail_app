@@ -32,16 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
       fetchViewModel<HomeViewModel>(context).fetchCocktailList();
 
   Future<void> _navigateToDetail(CocktailEntity cocktail) async {
-    await Navigator.pushNamed(
+    Navigator.pushNamed(
       context,
       Routes.detail,
       arguments: cocktail,
     );
-
-    ///for semplicity reloads cocktails list to refresh favourite state.
-    ///In more complex situation, is to prefer use a stream listening
-    ///to database status
-    await _fetchCocktails();
   }
 
   Future _showSearchBottomSheet() async {
