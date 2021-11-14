@@ -11,6 +11,5 @@ class CocktailFavouriteHandler extends ChangeNotifier {
     cocktail.favourite
         ? await _favouriteCocktailService.removeFromFavourites(cocktail)
         : await _favouriteCocktailService.addToFavourites(cocktail);
-    notifyListeners();
   }
 }
