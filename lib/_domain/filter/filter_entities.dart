@@ -19,11 +19,13 @@ class ApplyingFilterEntity {
   String? category;
   List<String>? ingredients;
   AlcoholPresence? alcoholPresence;
+  int itemPerSearch;
 
   ApplyingFilterEntity({
     this.name,
     this.category,
     this.ingredients,
     this.alcoholPresence,
+    this.itemPerSearch = 5,
   });
 }
