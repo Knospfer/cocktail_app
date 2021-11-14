@@ -54,7 +54,12 @@ class _AppRootScreenState extends State<AppRootScreen>
           child: FloatingActionButton(
             onPressed: () {},
             backgroundColor: ColorPalette.deepRed,
-            child: const Icon(Icons.qr_code),
+            child: Theme(
+              data: ThemeData(
+                iconTheme: const IconThemeData(color: ColorPalette.white),
+              ),
+              child: const Icon(Icons.qr_code),
+            ),
             elevation: 1,
           ),
         ),
