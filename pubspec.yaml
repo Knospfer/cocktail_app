@@ -27,6 +27,7 @@ dependencies:
   json_annotation: ^4.3.0   # Json Seriazliation Automated
   rxdart: ^0.27.2           # ReacviveX Observables
   transparent_image: ^2.0.0 # Transparent image utility
+  qr_flutter: ^4.0.0        # QrCode generator
 
 
 dev_dependencies:
