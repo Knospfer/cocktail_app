@@ -5,6 +5,8 @@ abstract class Store<T> {
   final Database _database;
   late final StoreRef<int, Map<String, Object?>> _store;
 
+  late final Stream<List> storeStatus;
+
   @protected
   String getItemKey(T item);
 
@@ -17,13 +19,18 @@ abstract class Store<T> {
   @protected
   T fromJson(Map<String, dynamic> json);
 
+  Finder _finderForSingleItem(T item) => Finder(
+        filter: Filter.custom(
+          (record) => record[getItemKeyName()] == getItemKey(item),
+        ),
+      );
+
   Store(this._database, {required name}) {
     _store = intMapStoreFactory.store(name);
-  }
 
-  Future<List<T>> get() async {
-    final items = await _store.find(_database);
-    return items.map((e) => fromJson(e.value)).toList();
+    storeStatus = _store.query().onSnapshots(_database).map(
+          (event) => event.map((e) => fromJson(e.value)).toList(),
+        );
   }
 
   Future<void> add(T item) async {
@@ -32,18 +39,36 @@ abstract class Store<T> {
     });
   }
 
-  Future<void> delete(T item) async {
+  Future<void> addList(List<T> items) async {
     await _database.transaction((transaction) async {
-      final finder = Finder(
-        filter: Filter.custom(
-          (record) => record[getItemKeyName()] == getItemKey(item),
-        ),
-      );
-      await _store.delete(transaction, finder: finder);
+      for (final item in items) {
+        await _store.add(transaction, itemToJson(item));
+      }
     });
   }
 
-  Future<void> deleteSore() async {
-    await _store.delete(_database);
+  Future<void> upsert(T item) async {
+    _database.transaction((transaction) async {
+      await _store.update(transaction, itemToJson(item),
+          finder: _finderForSingleItem(item));
+    });
+  }
+
+  Future<void> upsertList(List<T> items) async {
+    _database.transaction((transaction) async {
+      for (final item in items) {
+        await _store.update(
+          transaction,
+          itemToJson(item),
+          finder: _finderForSingleItem(item),
+        );
+      }
+    });
+  }
+
+  Future<void> delete(T item) async {
+    await _database.transaction((transaction) async {
+      await _store.delete(transaction, finder: _finderForSingleItem(item));
+    });
   }
 }
