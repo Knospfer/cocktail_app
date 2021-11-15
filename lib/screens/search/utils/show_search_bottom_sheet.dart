@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 Future<ApplyingFilterEntity?> showSearchBottomSheet(BuildContext context) =>
     showModalBottomSheet<ApplyingFilterEntity>(
-      isDismissible: false,
       backgroundColor: Colors.transparent,
       context: context,
       builder: (_) => ChangeNotifierProvider(
