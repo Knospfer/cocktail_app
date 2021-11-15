@@ -29,6 +29,7 @@ dependencies:
   transparent_image: ^2.0.0 # Transparent image utility
   qr_flutter: ^4.0.0        # QrCode Generator
   qr_code_scanner: ^0.6.1   # QrCode Scanner
+  local_auth: ^1.1.8        # Biometric authenticaiton
 
 
 dev_dependencies:
