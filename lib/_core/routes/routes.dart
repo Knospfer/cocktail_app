@@ -3,6 +3,8 @@ import 'package:cocktail_app/app_root_screen.dart';
 import 'package:cocktail_app/dependency_injection.dart';
 import 'package:cocktail_app/screens/detail/screen/detail_screen.dart';
 import 'package:cocktail_app/screens/detail/view_model/detail_view_model.dart';
+import 'package:cocktail_app/screens/login/screen/login_screen.dart';
+import 'package:cocktail_app/screens/login/view_model/login_view_model.dart';
 import 'package:cocktail_app/screens/qr/screens/qr_modal.dart';
 import 'package:cocktail_app/screens/qr/screens/qr_scanner.dart';
 import 'package:cocktail_app/screens/qr/view_model/qr_scanner_screen_view_model.dart';
@@ -11,7 +13,8 @@ import 'package:provider/provider.dart';
 
 @immutable
 class Routes {
-  static const String root = "/";
+  static const String login = "/";
+  static const String root = "/root";
   static const String detail = "/detail";
   static const String showQR = "/show_qr";
   static const String qrScanner = "/qr_scanner";
@@ -42,6 +45,14 @@ class Routes {
             child: const QrScannerScreen(),
           ),
           fullscreenDialog: true,
+        );
+      case login:
+        return _pageRoute(
+          settings,
+          (context) => ChangeNotifierProvider(
+            create: (_) => getIt<LoginViewModel>(),
+            child: LoginScreen(),
+          ),
         );
       default:
         throw (Exception("Route not found!"));

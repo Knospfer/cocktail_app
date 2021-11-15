@@ -10,7 +10,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: appThemeData,
-      initialRoute: Routes.root,
+      initialRoute: Routes.login,
       onGenerateRoute: Routes.generateRoute,
     );
   }
