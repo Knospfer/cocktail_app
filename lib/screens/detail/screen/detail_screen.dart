@@ -1,5 +1,6 @@
 import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:cocktail_app/_core/routes/routes.dart';
+import 'package:cocktail_app/_core/theme/text_styles/text_styles.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_shared/utility_methods/utility_methods.dart';
 import 'package:cocktail_app/_shared/widgets/favourite_button.dart';
@@ -74,8 +75,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 title: FittedBox(
                   child: Text(
                     widget.cocktail.name,
-                    style: const TextStyle(
-                      color: ColorPalette.white,
+                    style: const ExtraSmallTextStyle().copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),

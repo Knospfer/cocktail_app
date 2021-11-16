@@ -1,4 +1,5 @@
 import 'package:cocktail_app/_core/enums/alcohol_presence.dart';
+import 'package:cocktail_app/_core/theme/text_styles/text_styles.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class CocktailChip extends StatelessWidget {
         break;
       case AlcoholPresence.optional:
         _label = "Optional";
-        _color = Colors.yellow; //TODO COLORI
+        _color = Colors.orange;
     }
   }
 
@@ -28,7 +29,10 @@ class CocktailChip extends StatelessWidget {
     return Chip(
       label: Text(
         _label,
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+        style: const ExtraSmallTextStyle().copyWith(
+          fontWeight: FontWeight.bold,
+          fontSize: 10,
+        ),
       ),
       backgroundColor: _color,
     );

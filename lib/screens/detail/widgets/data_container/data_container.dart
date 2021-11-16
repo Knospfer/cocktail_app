@@ -1,5 +1,6 @@
 import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:cocktail_app/_core/enums/alcohol_presence.dart';
+import 'package:cocktail_app/_core/theme/text_styles/text_styles.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_shared/widgets/utility/paddings.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,13 +25,9 @@ class DataContainer extends StatelessWidget {
           title: "Instruction",
           content: cocktail.instructions ?? "Not present",
         ),
-        const Text(
+        Text(
           "Ingredients",
-          style: TextStyle(
-            color: ColorPalette.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+          style: const MediumTextStyle().copyWith(fontWeight: FontWeight.bold),
         ),
         const VerticalPadding(padding: 10),
         ...cocktail.ingredients.map(
@@ -38,9 +35,8 @@ class DataContainer extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 5),
             child: Text(
               i ?? "",
-              style: TextStyle(
+              style: const ExtraSmallTextStyle().copyWith(
                 color: ColorPalette.white.withAlpha(200),
-                fontSize: 16,
               ),
             ),
           ),

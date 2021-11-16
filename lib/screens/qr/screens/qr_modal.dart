@@ -1,4 +1,5 @@
 import 'package:cocktail_app/_core/colors/color_palette.dart';
+import 'package:cocktail_app/_core/theme/text_styles/text_styles.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_shared/widgets/utility/paddings.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,9 +31,11 @@ class QrModalScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 "Share me with you friends!",
-                style: TextStyle(fontSize: 20),
+                style: const MediumTextStyle().copyWith(
+                  color: ColorPalette.black,
+                ),
               ),
               const VerticalPadding(padding: 4),
               QrImage(

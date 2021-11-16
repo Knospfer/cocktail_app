@@ -1,4 +1,5 @@
 import 'package:cocktail_app/_core/colors/color_palette.dart';
+import 'package:cocktail_app/_core/theme/text_styles/text_styles.dart';
 import 'package:cocktail_app/_shared/widgets/utility/paddings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,17 +22,14 @@ class DataItem extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
-            color: ColorPalette.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+          style: const MediumTextStyle().copyWith(fontWeight: FontWeight.bold),
         ),
         const VerticalPadding(padding: 10),
         Text(
           content,
-          style:
-              TextStyle(color: ColorPalette.white.withAlpha(200), fontSize: 16),
+          style: const ExtraSmallTextStyle().copyWith(
+            color: ColorPalette.white.withAlpha(200),
+          ),
         ),
         Divider(
           color: ColorPalette.white.withAlpha(100),

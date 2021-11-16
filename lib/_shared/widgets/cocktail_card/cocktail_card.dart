@@ -1,4 +1,4 @@
-import 'package:cocktail_app/_core/colors/color_palette.dart';
+import 'package:cocktail_app/_core/theme/text_styles/text_styles.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
 import 'package:cocktail_app/_shared/widgets/cocktail_card/cocktail_chip.dart';
 import 'package:cocktail_app/_shared/widgets/favourite_button.dart';
@@ -51,9 +51,7 @@ class CocktailCard extends StatelessWidget {
                 const Expanded(child: SizedBox()),
                 Text(
                   cocktail.name,
-                  style: const TextStyle(
-                    color: ColorPalette.white,
-                    fontSize: 30,
+                  style: const LargeTextStyle().copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -62,10 +60,7 @@ class CocktailCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         cocktail.category,
-                        style: const TextStyle(
-                          color: ColorPalette.white,
-                          fontSize: 20,
-                        ),
+                        style: const MediumTextStyle()
                       ),
                     ),
                     FavouriteButton(

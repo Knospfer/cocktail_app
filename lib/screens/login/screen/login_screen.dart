@@ -1,5 +1,6 @@
 import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:cocktail_app/_core/routes/routes.dart';
+import 'package:cocktail_app/_core/theme/text_styles/text_styles.dart';
 import 'package:cocktail_app/_shared/utility_methods/utility_methods.dart';
 import 'package:cocktail_app/_shared/widgets/utility/paddings.dart';
 import 'package:cocktail_app/screens/login/view_model/login_view_model.dart';
@@ -40,10 +41,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 const Text(
                   "Welcome to\nCocktailz!",
-                  style: TextStyle(
-                    fontSize: 40,
-                    color: ColorPalette.white,
-                  ),
+                  style: ExtarLargeTextStyle(),
                 ),
                 const VerticalPadding(padding: 30),
                 const Expanded(flex: 2, child: SizedBox()),

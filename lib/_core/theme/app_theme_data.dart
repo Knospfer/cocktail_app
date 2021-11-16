@@ -1,16 +1,15 @@
 import 'package:cocktail_app/_core/colors/color_palette.dart';
+import 'package:cocktail_app/_core/theme/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
 final appThemeData = ThemeData(
   scaffoldBackgroundColor: ColorPalette.black,
   primarySwatch: Colors.grey,
-  appBarTheme: const AppBarTheme(
-      titleTextStyle: TextStyle(
-        color: ColorPalette.white,
-        fontSize: 16,
+  appBarTheme: AppBarTheme(
+      titleTextStyle: const ExtraSmallTextStyle().copyWith(
         fontWeight: FontWeight.bold,
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      iconTheme: IconThemeData(color: ColorPalette.white)),
+      iconTheme: const IconThemeData(color: ColorPalette.white)),
 );

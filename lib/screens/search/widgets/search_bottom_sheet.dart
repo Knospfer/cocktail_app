@@ -1,5 +1,6 @@
 import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:cocktail_app/_core/enums/alcohol_presence.dart';
+import 'package:cocktail_app/_core/theme/text_styles/text_styles.dart';
 import 'package:cocktail_app/_domain/filter/filter_entities.dart';
 import 'package:cocktail_app/_shared/utility_methods/utility_methods.dart';
 import 'package:cocktail_app/_shared/widgets/utility/paddings.dart';
@@ -69,10 +70,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                 const VerticalPadding(padding: 10),
                 const Text(
                   "Name",
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: ColorPalette.white,
-                  ),
+                  style: SmallTextStyle(),
                 ),
                 const VerticalPadding(padding: 10),
                 CupertinoTextField(
@@ -96,24 +94,19 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                 const VerticalPadding(padding: 30),
                 const Divider(color: ColorPalette.white),
                 const VerticalPadding(padding: 10),
-                const Align(
+                Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
                     "Advanced Search",
-                    style: TextStyle(
+                    style: const ExtraSmallTextStyle().copyWith(
                       fontWeight: FontWeight.bold,
-                      color: ColorPalette.white,
-                      fontSize: 16,
                     ),
                   ),
                 ),
                 const VerticalPadding(padding: 10),
                 const Text(
                   "Categories",
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: ColorPalette.white,
-                  ),
+                  style: SmallTextStyle(),
                 ),
                 const VerticalPadding(padding: 10),
               ],
@@ -130,13 +123,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
         const SliverPadding(padding: EdgeInsets.only(bottom: 20)),
         const SliverToBoxAdapter(
           child: Padding(
-            child: Text(
-              "Ingredients",
-              style: TextStyle(
-                fontSize: 18,
-                color: ColorPalette.white,
-              ),
-            ),
+            child: Text("Ingredients", style: SmallTextStyle()),
             padding: EdgeInsets.only(left: 16, right: 16, bottom: 10),
           ),
         ),
@@ -148,13 +135,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
         ),
         const SliverToBoxAdapter(
           child: Padding(
-            child: Text(
-              "Alcohol?",
-              style: TextStyle(
-                fontSize: 18,
-                color: ColorPalette.white,
-              ),
-            ),
+            child: Text("Alcohol?", style: SmallTextStyle()),
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           ),
         ),
@@ -180,10 +161,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                   child: FittedBox(
                     child: Text(
                       "Cocktail per Search: $_sliderLabel",
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: ColorPalette.white,
-                      ),
+                      style: const SmallTextStyle(),
                     ),
                   ),
                 ),
