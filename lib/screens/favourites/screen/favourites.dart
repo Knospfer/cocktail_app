@@ -1,5 +1,6 @@
 import 'package:cocktail_app/_core/routes/routes.dart';
 import 'package:cocktail_app/_domain/cocktail/entity/cocktail_entity.dart';
+import 'package:cocktail_app/_domain/cocktail/presentation/cocktail_list_handler.dart';
 import 'package:cocktail_app/_domain/filter/filter_entities.dart';
 import 'package:cocktail_app/_shared/utility_methods/utility_methods.dart';
 import 'package:cocktail_app/_shared/widgets/cocktail_card/cocktail_card.dart';
@@ -18,37 +19,33 @@ class FavouritesScreen extends StatefulWidget {
   State<FavouritesScreen> createState() => _FavouritesScreenState();
 }
 
-class _FavouritesScreenState extends State<FavouritesScreen> {
-  final _key = GlobalKey<StaggeredSliverListState<CocktailEntity>>();
-  bool _firstCall = true;
-  bool _isSearching = false;
-
+class _FavouritesScreenState extends State<FavouritesScreen>
+    with CocktailListHandler {
   @override
   void initState() {
     _fetchFavourites();
     super.initState();
   }
 
-  _fetchFavourites() =>
+  Future<void> _fetchFavourites() =>
       fetchViewModel<FavouritesViewModel>(context).fetchFavourites();
 
-  _searchFavourite({ApplyingFilterEntity? filter}) =>
+  Future<void> _searchFavourite({ApplyingFilterEntity? filter}) =>
       fetchViewModel<FavouritesViewModel>(context)
           .seachFavourite(filter: filter);
 
-  _removeFromFavourites(int index, CocktailEntity cocktail) {
+  void _removeFromFavourites(int index, CocktailEntity cocktail) {
     fetchViewModel<FavouritesViewModel>(context).removeFromFavourites(cocktail);
-    _key.currentState?.removeItem(index, cocktail);
+    key.currentState?.removeItem(index, cocktail);
   }
 
   Future<void> _navigateToDetail(int index, CocktailEntity cocktail) async {
-    final selectedCocktail = await Navigator.pushNamed(
-      context,
-      Routes.detail,
-      arguments: cocktail,
-    );
+    final selectedCocktail = await navigateToDetail(context, cocktail);
     _checkUpdatedCocktailStillFavourite(
-        index, selectedCocktail as CocktailEntity, cocktail);
+      index,
+      selectedCocktail as CocktailEntity,
+      cocktail,
+    );
   }
 
   void _checkUpdatedCocktailStillFavourite(
@@ -57,45 +54,29 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     CocktailEntity oldCocktail,
   ) {
     if (updatedCocktail == null) {
-      _key.currentState?.removeItem(oldIndex, oldCocktail);
+      key.currentState?.removeItem(oldIndex, oldCocktail);
       return;
     }
     if (!updatedCocktail.favourite) {
-      _key.currentState?.removeItem(oldIndex, oldCocktail);
+      key.currentState?.removeItem(oldIndex, oldCocktail);
       return;
     }
   }
-
-  bool _shouldUpdateCardList(List<CocktailEntity> cocktails) =>
-      cocktails.isNotEmpty && (_firstCall || _isSearching);
 
   @override
   Widget build(BuildContext context) {
     return MainScreenScaffold(
       title: "Hey",
       subtitle: "Here's your \nfavourite cocktails",
-      onSearchPressed: () async {
-        _isSearching = true;
-        final filter = await showSearchBottomSheet(context);
-        if (filter != null) await _searchFavourite(filter: filter);
-      },
+      onSearchPressed: () => filterCocktails(context, _searchFavourite),
       children: [
         Consumer<FavouritesViewModel>(
           builder: (context, viewModel, child) {
             final cocktails = viewModel.cocktails;
-
-            if (_shouldUpdateCardList(cocktails) && _isSearching) {
-              _key.currentState?.emptyList();
-            }
-
-            if (_shouldUpdateCardList(cocktails)) {
-              _firstCall = false;
-              _isSearching = false;
-              _key.currentState?.addItemsStaggered(cocktails);
-            }
+            conditionalUpdateCardList(cocktails);
 
             return StaggeredSliverList<CocktailEntity>(
-              key: _key,
+              key: key,
               builder: (index, cocktail) {
                 return GestureDetector(
                   behavior: HitTestBehavior.deferToChild,
