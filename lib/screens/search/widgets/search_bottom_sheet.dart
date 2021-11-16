@@ -29,7 +29,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
 
   double _sliderValue = 25;
   String get _sliderLabel =>
-      _sliderValue < 25 ? "${_sliderValue.toInt()}" : "MAX (can be slow)";
+      _sliderValue < 25 ? "${_sliderValue.toInt()}" : "MAX (may be slow)";
 
   void _updateRadioState(AlcoholPresence? value) {
     if (value == null) return;
