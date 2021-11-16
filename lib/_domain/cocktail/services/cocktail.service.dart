@@ -20,14 +20,18 @@ class CocktailService {
     if (filter == null || filter.searchByNameMode) {
       return _searchCocktailList(name: filter?.name);
     }
-    final idList = await _findCocktailList(filter: filter);
+    List<CocktailApiModel> idList = await _findCocktailList(filter: filter);
     final List<CocktailEntity> completeList = [];
+
+    final int? itemPerSearch = filter.itemPerSearch;
+    if (itemPerSearch != null && itemPerSearch <= 20) {
+      idList = idList.take(itemPerSearch).toList();
+    }
 
     ///IMPROVE: this is NOT ideal. In this way the app
     ///can expose the server to a severe overhead
     ///and the app seems slow during the wait
-    await Future.forEach<CocktailApiModel>(idList.take(filter.itemPerSearch),
-        (element) async {
+    await Future.forEach<CocktailApiModel>(idList, (element) async {
       final completeItem = await findElementBy(element.idDrink);
       completeList.add(completeItem);
     });

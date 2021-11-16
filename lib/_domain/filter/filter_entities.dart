@@ -19,7 +19,7 @@ class ApplyingFilterEntity {
   String? category;
   List<String>? ingredients;
   AlcoholPresence? alcoholPresence;
-  int itemPerSearch;
+  int? itemPerSearch;
 
   bool get searchByNameMode =>
       category == null && ingredients == null && alcoholPresence == null;
@@ -29,6 +29,6 @@ class ApplyingFilterEntity {
     this.category,
     this.ingredients,
     this.alcoholPresence,
-    this.itemPerSearch = 5,
+    this.itemPerSearch,
   });
 }

@@ -26,7 +26,10 @@ class SearchBottomSheet extends StatefulWidget {
 class _SearchBottomSheetState extends State<SearchBottomSheet> {
   final _controller = TextEditingController();
   AlcoholPresence _alcoholPresence = AlcoholPresence.present;
-  double _sliderValue = 5;
+
+  double _sliderValue = 25;
+  String get _sliderLabel =>
+      _sliderValue < 25 ? "${_sliderValue.toInt()}" : "MAX";
 
   void _updateRadioState(AlcoholPresence? value) {
     if (value == null) return;
@@ -165,16 +168,16 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(
+                Padding(
+                  padding: const EdgeInsets.only(
                     left: 16,
                     right: 16,
                     top: 20,
                     bottom: 10,
                   ),
                   child: Text(
-                    "Cocktail per Search",
-                    style: TextStyle(
+                    "Cocktail per Search: $_sliderLabel",
+                    style: const TextStyle(
                       fontSize: 18,
                       color: ColorPalette.white,
                     ),
@@ -185,7 +188,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                   value: _sliderValue,
                   min: 0,
                   max: 25,
-                  label: _sliderValue < 25 ? "${_sliderValue.toInt()}" : "MAX",
+                  label: _sliderLabel,
                   divisions: 5,
                   onChanged: (value) {
                     if (value >= 5) {
