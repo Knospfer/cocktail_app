@@ -82,6 +82,10 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                   placeholder: "Margarita..",
                   controller: _controller,
                   cursorColor: ColorPalette.black,
+                  onChanged: (_) {
+                    final name = _controller.text;
+                    _updateFilterState(name: name);
+                  },
                   onSubmitted: (_) {
                     final name = _controller.text;
                     _updateFilterState(name: name);
