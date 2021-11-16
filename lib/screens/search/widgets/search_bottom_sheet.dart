@@ -105,7 +105,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                 ),
                 const VerticalPadding(padding: 10),
                 const Text(
-                  "Categories",
+                  "Category",
                   style: SmallTextStyle(),
                 ),
                 const VerticalPadding(padding: 10),
@@ -114,7 +114,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
           ),
         ),
         SliverListChipHorizonalSelectable(
-          items: widget.filter.categories.map((e) => ChipItem(e)).toList(),
+          items: widget.filter.categories,
           onSelection: (items) {
             _updateFilterState(category: items.first);
           },
@@ -122,12 +122,12 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
         const SliverPadding(padding: EdgeInsets.only(bottom: 20)),
         const SliverToBoxAdapter(
           child: Padding(
-            child: Text("Ingredients", style: SmallTextStyle()),
+            child: Text("Ingredient", style: SmallTextStyle()),
             padding: EdgeInsets.only(left: 16, right: 16, bottom: 10),
           ),
         ),
         SliverListChipHorizonalSelectable(
-          items: widget.filter.ingredients.map((e) => ChipItem(e)).toList(),
+          items: widget.filter.ingredients,
           onSelection: (items) {
             _updateFilterState(ingredients: items);
           },

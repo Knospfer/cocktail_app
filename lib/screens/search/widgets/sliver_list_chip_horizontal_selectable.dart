@@ -2,15 +2,8 @@ import 'package:cocktail_app/_core/colors/color_palette.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ChipItem {
-  final String value;
-  bool selected = false;
-
-  ChipItem(this.value);
-}
-
 class SliverListChipHorizonalSelectable extends StatefulWidget {
-  final List<ChipItem> items;
+  final List<String> items;
   final void Function(List<String> items) onSelection;
 
   const SliverListChipHorizonalSelectable({
@@ -26,25 +19,37 @@ class SliverListChipHorizonalSelectable extends StatefulWidget {
 
 class _SliverListChipHorizonalSelectableState
     extends State<SliverListChipHorizonalSelectable> {
-  ChipItem? singleSelectionModeItem;
+  late Map<String, bool> itemMap;
 
-  void _select(ChipItem item) {
-    item.selected = !item.selected;
-    setState(() {
-      singleSelectionModeItem = item.selected ? item : null;
-    });
-    widget.onSelection([item.value]);
+  @override
+  void initState() {
+    super.initState();
+    itemMap = widget.items.asMap().map((key, value) => MapEntry(value, false));
   }
 
-  Color _backgroundColor(ChipItem item) =>
-      item.value == singleSelectionModeItem?.value
-          ? ColorPalette.deepRed
-          : ColorPalette.white;
+  void _select(String item) {
+    final oldValue = itemMap[item];
+    if (oldValue == null) return;
 
-  Color _textColor(ChipItem item) =>
-      item.value == singleSelectionModeItem?.value
-          ? ColorPalette.white
-          : ColorPalette.black;
+    _updateMapState(item, oldValue);
+
+    widget.onSelection([item]);
+  }
+
+  void _updateMapState(String item, bool oldValue) {
+    itemMap = itemMap.map((key, value) => MapEntry(key, false));
+    setState(() {
+      itemMap[item] = !oldValue;
+    });
+  }
+
+  Color _backgroundColor(String item) => itemMap[item] != null && itemMap[item]!
+      ? ColorPalette.deepRed
+      : ColorPalette.white;
+
+  Color _textColor(String item) => itemMap[item] != null && itemMap[item]!
+      ? ColorPalette.white
+      : ColorPalette.black;
 
   @override
   Widget build(BuildContext context) {
@@ -57,15 +62,15 @@ class _SliverListChipHorizonalSelectableState
           scrollDirection: Axis.horizontal,
           children: widget.items
               .map(
-                (e) => Padding(
+                (item) => Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: GestureDetector(
-                    onTap: () => _select(e),
+                    onTap: () => _select(item),
                     child: Chip(
-                      backgroundColor: _backgroundColor(e),
+                      backgroundColor: _backgroundColor(item),
                       label: Text(
-                        e.value,
-                        style: TextStyle(color: _textColor(e)),
+                        item,
+                        style: TextStyle(color: _textColor(item)),
                       ),
                     ),
                   ),
