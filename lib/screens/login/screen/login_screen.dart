@@ -6,12 +6,9 @@ import 'package:cocktail_app/_shared/widgets/utility/paddings.dart';
 import 'package:cocktail_app/screens/login/view_model/login_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:local_auth/local_auth.dart';
 
 class LoginScreen extends StatelessWidget {
-  final LocalAuthentication auth = LocalAuthentication(); //TODO DI E VIEW MODEL
-
-  LoginScreen({Key? key}) : super(key: key);
+ const LoginScreen({Key? key}) : super(key: key);
 
   Future<void> _authenticate(BuildContext context) async {
     final authenticated =

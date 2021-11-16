@@ -10,7 +10,7 @@ class QrScannerScreenViewModel extends ChangeNotifier {
   QrScannerScreenViewModel(this._cocktailService);
 
   Future<CocktailEntity?> findByIdsFromQRScan(String qr) async {
-    if (int.tryParse(qr) == null) return null; //TODO GESTIONE ERRORI
+    if (int.tryParse(qr) == null) return null;
     return _cocktailService.findElementBy(qr);
   }
 }

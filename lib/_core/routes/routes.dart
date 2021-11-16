@@ -51,7 +51,7 @@ class Routes {
           settings,
           (context) => ChangeNotifierProvider(
             create: (_) => getIt<LoginViewModel>(),
-            child: LoginScreen(),
+            child: const LoginScreen(),
           ),
         );
       default:
