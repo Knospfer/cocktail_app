@@ -20,7 +20,7 @@ class CocktailService {
     if (filter == null || filter.searchByNameMode) {
       return _searchCocktailList(name: filter?.name);
     }
-    List<CocktailApiModel> idList = await _findCocktailList(filter: filter);
+    List<String> idList = await _findCocktailList(filter);
     final List<CocktailEntity> completeList = [];
 
     final int? itemPerSearch = filter.itemPerSearch;
@@ -31,8 +31,8 @@ class CocktailService {
     ///IMPROVE: this is NOT ideal. In this way the app
     ///can expose the server to a severe overhead
     ///and the app seems slow during the wait
-    await Future.forEach<CocktailApiModel>(idList, (element) async {
-      final completeItem = await findElementBy(element.idDrink);
+    await Future.forEach<String>(idList, (element) async {
+      final completeItem = await findElementBy(element);
       completeList.add(completeItem);
     });
     return completeList;
@@ -40,16 +40,69 @@ class CocktailService {
 
   Future<List<CocktailEntity>> _searchCocktailList({String? name}) async {
     final queryString = name ?? '';
-    return _handleApiCall("/search.php?s=$queryString");
+    final rawResponse = await _api.get("/search.php?s=$queryString");
+    final apiResponse = ApiResponse<CocktailApiModel>.fromJson(rawResponse);
+
+    return apiResponse.drinks
+        .map((e) => CocktailEntity.fromApiModel(e))
+        .toList();
   }
 
-  Future<List<CocktailApiModel>> _findCocktailList({
-    ApplyingFilterEntity? filter,
-  }) async {
-    final queryString = _composeQueryString(filter);
-    final rawResponse = await _api.get("/filter.php?$queryString");
+  ///This is a workaround. The API set does not support
+  ///query string concatenation (returns only the result of the
+  ///last queryItem).
+  ///This should be done server side
+  Future<List<String>> _findCocktailList(
+    ApplyingFilterEntity filter,
+  ) async {
+    List<List<String>> innerJoinList = [];
+
+    final alcoholPresence = _alcoholPresenceToString(filter.alcoholPresence);
+    await _findCocktailStep(innerJoinList, "/filter.php?a=$alcoholPresence");
+
+    if (filter.category != null) {
+      await _findCocktailStep(
+        innerJoinList,
+        "/filter.php?c=${filter.category}",
+      );
+    }
+    if (filter.ingredients != null) {
+      final ingredients = _composeIngredientQueryString(filter.ingredients!);
+      await _findCocktailStep(
+        innerJoinList,
+        "/filter.php?i=$ingredients",
+      );
+    }
+
+    return _innerJoinList(innerJoinList);
+  }
+
+  Future<void> _findCocktailStep(
+    List<List<String>> innerJoinList,
+    String apiPath,
+  ) async {
+    final rawResponse = await _api.get(apiPath);
     final apiResponse = ApiResponse<CocktailApiModel>.fromJson(rawResponse);
-    return apiResponse.drinks;
+    innerJoinList.add(apiResponse.drinks.map((e) => e.idDrink).toList());
+  }
+
+  ///This method return the intersection of M lists of variables lenght
+  ///This should be done server side
+  List<String> _innerJoinList(List<List<String>> lists) {
+    lists.sort((a, b) => b.length - a.length);
+    final shortestList = lists.removeLast();
+    final setLists = lists.map((e) => e.toSet()).toList();
+    final result = [...shortestList];
+
+    for (final setList in setLists) {
+      for (final item in shortestList) {
+        if (setList.add(item)) {
+          result.remove(item);
+        }
+      }
+    }
+
+    return result;
   }
 
   Future<CocktailEntity> findElementBy(String id) async {
@@ -64,33 +117,6 @@ class CocktailService {
     return apiResponse.drinks
         .map((e) => CocktailEntity.fromApiModel(e))
         .toList();
-  }
-
-  String _composeQueryString(ApplyingFilterEntity? filter) {
-    if (filter == null) return "";
-
-    String queryString = "";
-
-    if (filter.alcoholPresence != null) {
-      queryString = _conditionalAppendQueryItemTo(queryString) +
-          "a=${_alcoholPresenceToString(filter.alcoholPresence!)}";
-    }
-    if (filter.category != null) {
-      queryString =
-          _conditionalAppendQueryItemTo(queryString) + "c=${filter.category}";
-    }
-    if (filter.ingredients != null) {
-      queryString = _conditionalAppendQueryItemTo(queryString) +
-          "i=" +
-          _composeIngredientQueryString(filter.ingredients!);
-    }
-
-    return queryString;
-  }
-
-  String _conditionalAppendQueryItemTo(String queryStirng) {
-    if (queryStirng.isNotEmpty) queryStirng += "&";
-    return queryStirng;
   }
 
   String _alcoholPresenceToString(AlcoholPresence alcoholPresence) {

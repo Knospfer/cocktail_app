@@ -18,17 +18,19 @@ class ApplyingFilterEntity {
   String? name;
   String? category;
   List<String>? ingredients;
-  AlcoholPresence? alcoholPresence;
+  AlcoholPresence alcoholPresence;
   int? itemPerSearch;
 
   bool get searchByNameMode =>
-      category == null && ingredients == null && alcoholPresence == null;
+      category == null &&
+      ingredients == null &&
+      alcoholPresence == AlcoholPresence.present;
 
   ApplyingFilterEntity({
     this.name,
     this.category,
     this.ingredients,
-    this.alcoholPresence,
+    this.alcoholPresence = AlcoholPresence.present,
     this.itemPerSearch,
   });
 }
