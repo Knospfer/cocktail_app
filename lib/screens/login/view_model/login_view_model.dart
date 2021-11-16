@@ -17,7 +17,7 @@ class LoginViewModel extends ChangeNotifier {
         stickyAuth: true,
       );
     } on PlatformException catch (_) {
-      return false;
+      return true; //For semplicity sake, if functionality is not available
     }
   }
 }
