@@ -11,7 +11,13 @@ import 'package:flutter/material.dart';
 
 class SearchBottomSheet extends StatefulWidget {
   final FilterDataEntity filter;
-  const SearchBottomSheet({Key? key, required this.filter}) : super(key: key);
+  final bool showRangeSelection;
+
+  const SearchBottomSheet({
+    Key? key,
+    required this.filter,
+    this.showRangeSelection = true,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SearchBottomSheetState();
@@ -153,46 +159,47 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
             onChanged: _updateRadioState,
           ),
         ),
-        SliverToBoxAdapter(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 20,
-                  bottom: 10,
-                ),
-                child: Text(
-                  "Cocktail per Search",
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: ColorPalette.white,
+        if (widget.showRangeSelection)
+          SliverToBoxAdapter(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 20,
+                    bottom: 10,
+                  ),
+                  child: Text(
+                    "Cocktail per Search",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: ColorPalette.white,
+                    ),
                   ),
                 ),
-              ),
-              Slider(
-                thumbColor: ColorPalette.white,
-                value: _sliderValue,
-                min: 0,
-                max: 25,
-                label: _sliderValue < 25 ? "${_sliderValue.toInt()}" : "MAX",
-                divisions: 5,
-                onChanged: (value) {
-                  if (value >= 5) {
-                    setState(() {
-                      _sliderValue = value;
-                    });
-                    _updateFilterState(itemPerSearch: _sliderValue.toInt());
-                  }
-                },
-              ),
-              const VerticalPadding(padding: 20),
-            ],
-          ),
-        )
+                Slider(
+                  thumbColor: ColorPalette.white,
+                  value: _sliderValue,
+                  min: 0,
+                  max: 25,
+                  label: _sliderValue < 25 ? "${_sliderValue.toInt()}" : "MAX",
+                  divisions: 5,
+                  onChanged: (value) {
+                    if (value >= 5) {
+                      setState(() {
+                        _sliderValue = value;
+                      });
+                      _updateFilterState(itemPerSearch: _sliderValue.toInt());
+                    }
+                  },
+                ),
+                const VerticalPadding(padding: 20),
+              ],
+            ),
+          )
       ],
     );
   }

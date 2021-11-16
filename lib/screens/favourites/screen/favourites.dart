@@ -69,6 +69,7 @@ class _FavouritesScreenState extends State<FavouritesScreen>
       onSearchPressed: () => filterCocktails(
         context,
         searchCocktailCallback: _searchFavourite,
+        showRangeSelection: false,
       ),
       children: [
         Consumer<FavouritesViewModel>(

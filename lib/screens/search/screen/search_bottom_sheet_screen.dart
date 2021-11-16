@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SearchBottomSheetScreen extends StatefulWidget {
+  final bool showRangeSelection;
+
   const SearchBottomSheetScreen({
     Key? key,
+    this.showRangeSelection = true,
   }) : super(key: key);
 
   @override
@@ -67,7 +70,10 @@ class _SearchBottomSheetScreenState extends State<SearchBottomSheetScreen> {
                   child: CircularProgressIndicator(),
                 );
               }
-              return SearchBottomSheet(filter: filter);
+              return SearchBottomSheet(
+                filter: filter,
+                showRangeSelection: widget.showRangeSelection,
+              );
             },
           ),
         ),

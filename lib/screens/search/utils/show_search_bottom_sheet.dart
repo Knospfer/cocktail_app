@@ -5,12 +5,17 @@ import 'package:cocktail_app/screens/search/view_model/search_bottom_sheet_view_
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-Future<ApplyingFilterEntity?> showSearchBottomSheet(BuildContext context) =>
+Future<ApplyingFilterEntity?> showSearchBottomSheet(
+  BuildContext context, {
+  bool showRangeSelection = true,
+}) =>
     showModalBottomSheet<ApplyingFilterEntity>(
       backgroundColor: Colors.transparent,
       context: context,
       builder: (_) => ChangeNotifierProvider(
         create: (_) => getIt<SearchBottomSheetViewModel>(),
-        child: const SearchBottomSheetScreen(),
+        child: SearchBottomSheetScreen(
+          showRangeSelection: showRangeSelection,
+        ),
       ),
     );

@@ -46,9 +46,13 @@ mixin CocktailListHandler {
     BuildContext context, {
     required Future<void> Function({ApplyingFilterEntity? filter})
         searchCocktailCallback,
+    bool showRangeSelection = true,
   }) async {
     _isSearching = true;
-    final filter = await showSearchBottomSheet(context);
+    final filter = await showSearchBottomSheet(
+      context,
+      showRangeSelection: showRangeSelection,
+    );
 
     showLoading(context);
     await searchCocktailCallback(filter: filter);
