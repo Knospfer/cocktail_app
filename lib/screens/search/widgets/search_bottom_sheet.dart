@@ -115,7 +115,6 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
         ),
         SliverListChipHorizonalSelectable(
           items: widget.filter.categories.map((e) => ChipItem(e)).toList(),
-          singleSlectionEnabled: true,
           onSelection: (items) {
             _updateFilterState(category: items.first);
           },
