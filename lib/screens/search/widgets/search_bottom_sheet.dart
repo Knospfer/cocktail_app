@@ -29,7 +29,7 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
 
   double _sliderValue = 25;
   String get _sliderLabel =>
-      _sliderValue < 25 ? "${_sliderValue.toInt()}" : "MAX";
+      _sliderValue < 25 ? "${_sliderValue.toInt()}" : "MAX (can be slow)";
 
   void _updateRadioState(AlcoholPresence? value) {
     if (value == null) return;
@@ -94,6 +94,8 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                   },
                 ),
                 const VerticalPadding(padding: 30),
+                const Divider(color: ColorPalette.white),
+                const VerticalPadding(padding: 10),
                 const Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
@@ -175,11 +177,13 @@ class _SearchBottomSheetState extends State<SearchBottomSheet> {
                     top: 20,
                     bottom: 10,
                   ),
-                  child: Text(
-                    "Cocktail per Search: $_sliderLabel",
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: ColorPalette.white,
+                  child: FittedBox(
+                    child: Text(
+                      "Cocktail per Search: $_sliderLabel",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: ColorPalette.white,
+                      ),
                     ),
                   ),
                 ),
