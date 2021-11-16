@@ -59,11 +59,11 @@ mixin CocktailListHandler {
     dismissLoading(context);
   }
 
-  Future<void> navigateToDetail(
+  Future<dynamic> navigateToDetail(
     BuildContext context,
     CocktailEntity cocktail,
   ) async {
-    Navigator.pushNamed(
+    return Navigator.pushNamed(
       context,
       Routes.detail,
       arguments: cocktail,
