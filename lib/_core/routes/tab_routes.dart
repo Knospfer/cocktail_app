@@ -1,3 +1,4 @@
+import 'package:cocktail_app/_shared/widgets/main_screen_scaffold/view_model/main_screen_scaffold_view_model.dart';
 import 'package:cocktail_app/dependency_injection.dart';
 import 'package:cocktail_app/screens/favourites/screen/favourites.dart';
 import 'package:cocktail_app/screens/favourites/view_model/favourites_view_model.dart';
@@ -12,12 +13,26 @@ class TabRoutes {
   static const String favourites = "/favourites";
 
   static List<Widget> buildTabRoutes() => [
-        ChangeNotifierProvider(
-          create: (_) => getIt<HomeViewModel>(),
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (_) => getIt<HomeViewModel>(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => getIt<MainScreenScaffoldViewModel>(),
+            ),
+          ],
           child: const HomeScreen(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => getIt<FavouritesViewModel>(),
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (_) => getIt<FavouritesViewModel>(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => getIt<MainScreenScaffoldViewModel>(),
+            ),
+          ],
           child: const FavouritesScreen(),
         ),
       ];
